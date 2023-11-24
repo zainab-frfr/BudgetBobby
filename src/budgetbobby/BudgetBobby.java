@@ -19,7 +19,7 @@ public class BudgetBobby {
         System.out.println(b+a);
         System.out.println("yayy we did it");
         for (int i = 0; i < ; i++) {
-            System.out.println("WUHOOOOOOOOO");
+            System.out.println("WUHOOOOOOOOO")
         }
     }
     
