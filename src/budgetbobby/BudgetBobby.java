@@ -17,6 +17,7 @@ public class BudgetBobby {
         int a = 10;
         int b = 79;
         System.out.println(b+a);
+        System.out.println("yayy we did it");
     }
     
 }
