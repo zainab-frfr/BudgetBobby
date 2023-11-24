@@ -14,7 +14,9 @@ public class BudgetBobby {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        int a = 10;
+        int b = 79;
+        System.out.println(b+a);
     }
     
 }
