@@ -23,7 +23,7 @@ public class UserAccounts {
         allUsers.insert(newUser);
     }
     //find user
-//    public User findUser(int ID){
-//        allUsers.findObject();
-//    }
+    public User findUser(int ID){
+        return allUsers.findUser(ID);
+    }
 }

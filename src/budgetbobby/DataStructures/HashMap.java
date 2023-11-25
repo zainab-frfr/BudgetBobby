@@ -17,6 +17,10 @@ public class HashMap<T> {
         }
         return -1;
     }
+    
+    public int HashID(int id){
+        return id % Table.length;
+    }
 
     public void insert(T obj){
         int index = Hash(obj);
@@ -32,16 +36,16 @@ public class HashMap<T> {
         return false;
     }
 
-//    public Object findObject(T obj) {
-//        int idx = Hash(obj);
-//        if(Table[idx]!=null) {
-//            Object var = (Object) Table[idx].findObject(obj);
-//            if (var != null) {
-//                return var;
-//            }
-//        }
-//        return null;
-//    }
+    public User findUser(int id) {
+        int idx = HashID(id);
+        if(Table[idx]!=null) {
+            User var = (User) Table[idx].findUser(id);
+            if (var != null) {
+                return var;
+            }
+        }
+        return null;
+    }
 
     public void delete(T obj){
         int idx = Hash(obj);

@@ -12,7 +12,13 @@ public class Delivery {
     //graph storing areas and distances
     String restaurantArea;
     String userArea;
-    //priority queue
+    //priority queue of orders placed
+    User user;
+    
+    
+    //shortest distance calculation method
+    
+    // email sending and confirmation process
     
     
 }
