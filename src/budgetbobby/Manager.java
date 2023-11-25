@@ -9,5 +9,10 @@ package budgetbobby;
  * @author zaina
  */
 public class Manager {
+    // Hashmap of restaurant
+    UserAccounts accounts;
+    Delivery delivery;
     
+    
+    // filter display
 }
