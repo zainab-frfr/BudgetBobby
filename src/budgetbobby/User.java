@@ -13,16 +13,38 @@ public class User {
     private String area;
     private String email;
     private int calories;
-    private double billAmount;
 
-    public User(String name, String area, String email, int calories, double billAmount) {
+    private int ID;
+    private double rating;
+
+    private Restaurant restaurant;
+
+    private Bill bill;
+
+    // user should also have a list of bills to track diff bills of diff times of orders
+
+    public User(String name, String area, String email, int calories, int id) {
         this.name = name;
         this.area = area;
         this.email = email;
         this.calories = calories;
-        this.billAmount = billAmount;
+        this.ID = id;
     }
-    
+
+    //create bill shall be called when the user confirms the order
+    public void createBill(Restaurant restaurant) {
+        this.restaurant = restaurant;
+        restaurant.addCustomer(this);
+        this.bill = new Bill(this, restaurant.getName());
+    }
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public int getID() {
+        return this.ID;
+    }
 
     public String getName() {
         return name;
@@ -56,17 +78,17 @@ public class User {
         this.calories = calories;
     }
 
-    public double getBillAmount() {
-        return billAmount;
+    public double getRating() {
+        return rating;
     }
 
-    public void setBillAmount(double billAmount) {
-        this.billAmount = billAmount;
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
     @Override
     public String toString() {
-        return "User{" + "name=" + name + ", area=" + area + ", email=" + email + ", calories=" + calories + ", billAmount=" + billAmount + '}';
+        return "User{" + "name=" + name + ", area=" + area + ", email=" + email + ", calories=" + calories + ", orderedList="  + bill.getOrderedItems() + '}';
     }
     
     

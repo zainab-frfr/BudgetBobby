@@ -4,11 +4,14 @@
  */
 package budgetbobby;
 
+import budgetbobby.DataStructures.LinkedList;
+
 /**
  *
  * @author zaina
  */
 public class Restaurant {
+   LinkedList<User> customers = new LinkedList<>();
    private String name;
    private String area;
    //menu hashTable left
@@ -17,8 +20,27 @@ public class Restaurant {
    
    
    // method of searching
+
    
    // method of calculating the avg rating of 
-   
-    
+
+
+   public void addCustomer(User customer){
+      customers.insert(customer);
+   }
+   public String getName() {
+      return name;
+   }
+
+   public String getArea() {
+      return area;
+   }
+
+   public int getOrdersPerDay() {
+      return ordersPerDay;
+   }
+
+   public double getStars() {
+      return stars;
+   }
 }
