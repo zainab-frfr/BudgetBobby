@@ -43,18 +43,18 @@ public class LinkedList<T> {
     }
 
 
-//    public Object findObject(T d) {
-//        Node<T> x = head;
-//        if (head == null) return false;
-//        while (x.getData() != d && x.next != null) {
-//            x = x.next;
-//        }
-//        if(x.data == d){
-//            return x;
-//        }
-//        else
-//            return null;
-//    }
+    public Object findObject(T d) {
+        Node<T> x = head;
+        if (head == null) return false;
+        while (x.getData() != d && x.next != null) {
+            x = x.next;
+        }
+        if(x.data == d){
+            return x;
+        }
+        else
+            return null;
+    }
 
     public void clear() {
         head = null;
