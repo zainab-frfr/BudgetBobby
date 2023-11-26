@@ -8,7 +8,7 @@ package budgetbobby;
  *
  * @author zaina
  */
-public class User {
+public class User implements Comparable<User> {
     private String name;
     private String area;
     private String email;
