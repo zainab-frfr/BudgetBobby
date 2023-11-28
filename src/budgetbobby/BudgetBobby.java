@@ -18,6 +18,7 @@ public class BudgetBobby {
         // ZEHRA TESTING HERE
         // RIGHT NOW
         // WUHOOOOOOOO
+        System.out.println("WUHOOOOOOOO");
     }
     
 }
