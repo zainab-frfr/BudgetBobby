@@ -43,13 +43,13 @@ public class LinkedList<T> {
     }
 
 
-    public Object findObject(T d) {
-        Node<T> x = head;
+    public Object findUser(int d) {
+        Node<User> x = (Node<User>) head;
         if (head == null) return false;
-        while (x.getData() != d && x.next != null) {
+        while (x.getData().getID()!= d && x.next != null) {
             x = x.next;
         }
-        if(x.data == d){
+        if(x.data.getID()== d){
             return x;
         }
         else
