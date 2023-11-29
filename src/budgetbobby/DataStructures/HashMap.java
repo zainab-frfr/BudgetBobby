@@ -15,6 +15,7 @@ public class HashMap<T> {
         if(obj instanceof User){
             return ((User) obj).getID() % Table.length;
         }
+        // code according to price
         return -1;
     }
 

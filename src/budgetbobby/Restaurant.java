@@ -4,6 +4,7 @@
  */
 package budgetbobby;
 
+import budgetbobby.DataStructures.HashMap;
 import budgetbobby.DataStructures.LinkedList;
 
 /**
@@ -15,18 +16,30 @@ public class Restaurant {
    private String name;
    private String area;
    //menu hashTable left
+   HashMap<FoodItem> itemsOFRestaurant = new HashMap<>(15);//we're hashing based on price
+
+
+
    private int ordersPerDay = 0; // our cycle of a day is one time program run
-   private double stars;
+   private double totalStars; // total stars by customers restaurant
    
    
    // method of searching
 
    
-   // method of calculating the avg rating of 
+   // method of calculating the avg rating of
+   public double avgRating(){
+      totalStars+= customers.getTail().getData().getRating();
+      return totalStars/this.ordersPerDay;
+   }
 
+   public void addFoodItem(FoodItem item){
+      itemsOFRestaurant.insert(item);
+   }
 
    public void addCustomer(User customer){
       customers.insert(customer);
+      ordersPerDay++;
    }
    public String getName() {
       return name;
@@ -41,6 +54,6 @@ public class Restaurant {
    }
 
    public double getStars() {
-      return stars;
+      return totalStars;
    }
 }

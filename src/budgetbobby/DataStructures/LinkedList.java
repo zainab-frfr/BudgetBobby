@@ -7,6 +7,8 @@ public class LinkedList<T> {
     private Node<T> head;
     private Node<T> tail;
 
+    private int length = 0;
+
     public Node<T> getHead() {
         return head;
     }
@@ -29,6 +31,8 @@ public class LinkedList<T> {
             x.next = NewNode;
             tail = x.next;
         }
+
+        length++;
 
     }
 
@@ -61,16 +65,26 @@ public class LinkedList<T> {
     }
 
 
+    public int getLength() {
+        return length;
+    }
+
+    public Node<T> getTail() {
+        return tail;
+    }
+
     public void delete(T d) {
         Node<T> x = head;
 
         if(head!=null) {
             if (x.data == d) {
                 head = x.next;
+                length--;
             } else {
                 while (x.next != null) {
                     if (x.next.data == d) {
                         x.next = x.next.next;
+                        length--;
                         return;
                     } else x = x.next;
                 }

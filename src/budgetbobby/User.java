@@ -90,8 +90,18 @@ public class User implements Comparable<User> {
     public String toString() {
         return "User{" + "name=" + name + ", area=" + area + ", email=" + email + ", calories=" + calories + ", orderedList="  + bill.getOrderedItems() + '}';
     }
-    
-    
-    
-    
+
+
+    @Override
+    public int compareTo(User o) {
+        if(o.getID() > this.getID()){
+            return 1;
+        }
+        else if(o.getID() < this.getID()){
+            return -1;
+        }
+        else{
+            return 0;
+        }
+    }
 }
