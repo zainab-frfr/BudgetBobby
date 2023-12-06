@@ -92,6 +92,22 @@ public class LinkedList<T> {
         }
     }
 
+
+    public Node<T> getNode(int idx){
+        int counter = 0;
+        Node<T> temp = head;
+
+        while(temp != null){
+            if(counter==idx){
+                return temp;
+            }
+            counter++;
+            temp = temp.next;
+        }
+
+        return null;
+    }
+
     public String toString() {
         String s = "";
         if(head==null) return "list is empty";
@@ -102,5 +118,14 @@ public class LinkedList<T> {
             Temp=Temp.next;
         }
         return s;
+    }
+
+    public boolean findUserEmail(String email){
+        Node<User> x = (Node<User>) head;
+        if (head == null) return false;
+        while (x.getData().getEmail().equals(email)&& x.next != null) {
+            x = x.next;
+        }
+        return x.getData().getEmail().equals(email);
     }
 }

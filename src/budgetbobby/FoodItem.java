@@ -13,9 +13,9 @@ public class FoodItem {
     private int calorie;
     private double price;
     private String Category;
-    private String mealTime;
+    private String mealTime; //breakfast and meal
     
-    FoodItem(String name, int calorie, double price, String Category, String mealTime){
+    FoodItem(String name, double price, String Category, int calorie,   String mealTime){
         this.name = name;
         this.calorie = calorie;
         this.price = price;

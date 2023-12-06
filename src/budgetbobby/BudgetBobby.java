@@ -14,11 +14,9 @@ public class BudgetBobby {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //main
-        // ZEHRA TESTING HERE
-        // RIGHT NOW
-        // WUHOOOOOOOO
-        System.out.println("WUHOOOOOOOO");
+        Manager manager = new Manager();
+        //System.out.println(manager.allRestaurants);
+        System.out.println(manager.accounts);
     }
     
 }

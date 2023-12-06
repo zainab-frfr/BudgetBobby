@@ -57,7 +57,7 @@ public class Bill {
     @Override
     public String toString() {
         String s = "";
-              s =  "userName=" + user +
+              s =  "User=" + user +
                 ", restaurant='" + restaurant + '\'';
         if(orderedItems!=null){
             s += orderedItems.toString();

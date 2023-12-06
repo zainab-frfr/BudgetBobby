@@ -11,8 +11,8 @@ import budgetbobby.DataStructures.*;
  * @author zaina
  */
 public class UserAccounts {
-    //hashmap of users/user id
-    HashMap<User> allUsers;
+
+    HashMap<User> allUsers; //hashmap of users/user id
 
     public UserAccounts() {
         this.allUsers = new HashMap<>(20);
@@ -25,5 +25,10 @@ public class UserAccounts {
     //find user
     public User findUser(int ID){
         return  allUsers.findUser(ID);
+    }
+
+    @Override
+    public String toString() {
+        return "" + allUsers;
     }
 }

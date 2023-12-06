@@ -23,7 +23,7 @@ public class User implements Comparable<User> {
 
     // user should also have a list of bills to track diff bills of diff times of orders
 
-    public User(String name, String area, String email, int calories, int id) {
+    public User(String name, String email,String area, int calories, int id) {
         this.name = name;
         this.area = area;
         this.email = email;
@@ -88,7 +88,7 @@ public class User implements Comparable<User> {
 
     @Override
     public String toString() {
-        return "User{" + "name=" + name + ", area=" + area + ", email=" + email + ", calories=" + calories + ", orderedList="  + bill.getOrderedItems() + '}';
+        return "User{" + "name=" + name + ", area=" + area + ", email=" + email + ", calories=" + calories /*+ ", orderedList="  + bill.getOrderedItems()*/ + '}'+'\n';
     }
 
 

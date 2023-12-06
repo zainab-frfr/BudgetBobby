@@ -1,0 +1,53 @@
+FoodItemName|Price|Category|Calorie|MealTime
+
+Classic Burger|6.99|FastFood|550|Meal
+BBQ Chicken Wings|8.99|BBQ|700|Meal
+Sweet and Sour Pork|12.49|Chinese|600|Meal
+Caesar Salad|7.99|Continental|350|Meal
+Margherita Pizza|10.99|Italian|800|Meal
+Mediterranean Salad|9.49|Mediterranean|450|Meal
+Chicken Fried Rice|11.99|Rice|650|Meal
+Chocolate Brownie|4.99|Desserts|400|Meal
+Iced Cappuccino|3.49|Beverages|120|Meal
+Breakfast Burrito|5.49|Breakfast|500|Breakfast
+Sushi Roll Combo|14.99|Japanese|600|Meal
+Greek Gyro|8.99|Mediterranean|550|Meal
+Chicken Alfredo|12.99|Italian|700|Meal
+Spicy Tofu Stir-Fry|9.99|Vegetarian|480|Meal
+Mango Sorbet|6.49|Desserts|200|Meal
+Green Tea|2.99|Beverages|0|Meal
+Avocado Toast|7.49|Breakfast|350|Breakfast
+Grilled Salmon|15.99|Seafood|600|Meal
+Tiramisu|8.99|Desserts|450|Meal
+Vegetable Wrap|6.99|Vegetarian|400|Meal
+Veggie Burger|7.49|Vegetarian|500|Meal
+Teriyaki Chicken|10.99|Japanese|650|Meal
+Caprese Pizza|11.99|Italian|750|Meal
+Spinach and Feta Salad|8.49|Salad|300|Lunch
+Pulled Pork Sandwich|9.99|BBQ|600|Meal
+Chicken Tikka|13.99|Indian|800|Meal
+Shrimp Scampi|14.99|Seafood|550|Dinner
+Quinoa Salad|9.99|Salad|400|Lunch
+Margarita Pizza|12.49|Italian|700|Meal
+Blueberry Pancakes|6.49|Breakfast|450|Breakfast
+Tofu Noodle Stir-Fry|8.99|Vegetarian|380|Meal
+Mango Lassi|3.99|Beverages|150|Meal
+Chicken Caesar Wrap|7.99|Wrap|600|Lunch
+Chocolate Chip Cookie|2.49|Desserts|200|Meal
+Szechuan Beef|11.49|Chinese|700|Dinner
+Veggie Burrito Bowl|10.49|Bowl|500|Meal
+Blue Cheese Burger|8.99|FastFood|600|Meal
+Chicken Quesadilla|9.49|Mexican|550|Dinner
+Margherita Flatbread|7.99|Italian|400|Lunch
+Pineapple Fried Rice|10.99|Rice|600|Meal
+Raspberry Sorbet|5.99|Desserts|180|Meal
+Cappuccino|3.49|Beverages|80|Breakfast
+Grilled Veggie Skewers|9.49|Vegetarian|350|Dinner
+Tuna Salad|8.49|Salad|400|Lunch
+Teriyaki Salmon|15.99|Seafood|500|Meal
+Veggie Pizza|11.99|Italian|650|Dinner
+Chicken Pesto Pasta|12.99|Italian|750|Dinner
+Blueberry Smoothie|4.49|Beverages|250|Breakfast
+Bacon and Egg Bagel|5.99|Breakfast|450|Breakfast
+Pad Thai|10.99|Thai|700|Dinner
+Mango Tango Smoothie|4.99|Beverages|180|Breakfast

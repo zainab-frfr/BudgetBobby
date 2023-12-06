@@ -1,6 +1,9 @@
 package budgetbobby.DataStructures;
 
+import budgetbobby.FoodItem;
 import budgetbobby.User;
+
+import java.util.Arrays;
 
 public class HashMap<T> {
     LinkedList<T>[] Table;
@@ -16,6 +19,9 @@ public class HashMap<T> {
             return ((User) obj).getID() % Table.length;
         }
         // code according to price
+        if(obj instanceof FoodItem){
+            return (int)(((FoodItem) obj).getPrice()) % Table.length;
+        }
         return -1;
     }
 
@@ -54,10 +60,29 @@ public class HashMap<T> {
         else Table[idx].delete(obj);
     }
 
-    public void displayTable() {
-        for (LinkedList<T> tLinkedList : Table) {
-            if (tLinkedList != null)
-                System.out.println(tLinkedList.toString());
+//    public void displayTable() {
+//        for (LinkedList<T> tLinkedList : Table) {
+//            if (tLinkedList != null)
+//                System.out.println(tLinkedList.toString());
+//        }
+//    }
+
+    public boolean findUserEmail(String email){
+        //LinkedList<T>[] Table;
+        boolean found = false;
+
+        for (int i = 0; i < Table.length; i++) {
+            found = Table[i].findUserEmail(email);
         }
+        return found;
     }
+
+    @Override
+    public String toString() {
+        return "HashMap{" +
+                "Table=" + Arrays.toString(Table) +
+                '}';
+    }
+
+
 }
