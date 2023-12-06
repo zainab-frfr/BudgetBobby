@@ -2,6 +2,8 @@ package budgetbobby.DataStructures;
 
 import budgetbobby.User;
 
+import java.sql.SQLOutput;
+
 public class LinkedList<T> {
 
     private Node<T> head;
@@ -47,14 +49,14 @@ public class LinkedList<T> {
     }
 
 
-    public Object findUser(int d) {
+    public User findUser(int d) {
         Node<User> x = (Node<User>) head;
-        if (head == null) return false;
+        if (head == null) return null;
         while (x.getData().getID()!= d && x.next != null) {
             x = x.next;
         }
         if(x.data.getID()== d){
-            return x;
+            return x.getData();
         }
         else
             return null;
@@ -122,10 +124,13 @@ public class LinkedList<T> {
 
     public boolean findUserEmail(String email){
         Node<User> x = (Node<User>) head;
-        if (head == null) return false;
-        while (x.getData().getEmail().equals(email)&& x.next != null) {
+        if (head == null) {
+            return false;
+        }
+
+        while (x.getData().getEmail().compareTo(email)!=0 && x.next != null) {
             x = x.next;
         }
-        return x.getData().getEmail().equals(email);
+        return x.getData().getEmail().compareTo(email)==0;
     }
 }

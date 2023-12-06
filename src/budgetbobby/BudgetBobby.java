@@ -4,6 +4,8 @@
  */
 package budgetbobby;
 
+import java.io.IOException;
+
 /**
  *
  * @author zaina
@@ -13,10 +15,12 @@ public class BudgetBobby {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Manager manager = new Manager();
         //System.out.println(manager.allRestaurants);
         System.out.println(manager.accounts);
+
+
     }
     
 }

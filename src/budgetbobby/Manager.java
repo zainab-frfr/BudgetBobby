@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  *
@@ -25,6 +26,7 @@ public class Manager {
     LinkedList<Restaurant> allRestaurants;
     LinkedList<FoodItem> foodItemLinkedList;
 
+    Scanner input = new Scanner(System.in);
     public Manager() {
         allRestaurants = new LinkedList<Restaurant>();
         foodItemLinkedList = new LinkedList<>();
@@ -106,7 +108,14 @@ public class Manager {
 
 
     //method to input user selection
-
+    public void testing() throws IOException {
+//        System.out.println("enter id");
+//        int id = input.nextInt();
+//
+//        manager_login_signin.login(id);
+//        manager_login_signin.signUp("john", "john.doe@email.com", "bahadrabad", 0,123);
+//        manager_login_signin.signUp("zainab", "zainab.rehman.frfr@gmail.com", "bahadrabad", 345,1234);
+    }
 
     
     // filter display

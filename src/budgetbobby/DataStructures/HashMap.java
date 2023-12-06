@@ -72,7 +72,10 @@ public class HashMap<T> {
         boolean found = false;
 
         for (int i = 0; i < Table.length; i++) {
-            found = Table[i].findUserEmail(email);
+            if(Table[i]!=null){
+                found = Table[i].findUserEmail(email);
+                if(found) break;
+            }
         }
         return found;
     }

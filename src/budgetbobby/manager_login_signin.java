@@ -17,7 +17,7 @@ public class manager_login_signin {
     public boolean checkIfUserExitsID(int ID){
         return accounts.findUser(ID) != null;
     }
-    public boolean checkIfUserExitsEmail(String email){
+    public boolean checkIfUserExistEmail(String email){
         return accounts.allUsers.findUserEmail(email);
     }
 
@@ -28,6 +28,8 @@ public class manager_login_signin {
             System.out.println("ID doesn't exist");
             //go to sign up page
             //signUp(ID);
+        }else{
+            System.out.println("found");
         }
 
     }
@@ -36,7 +38,7 @@ public class manager_login_signin {
     //id will be generated in manager and that will be sent here from the file by one increment in the counter
     public void signUp(String userName, String email, String area, int calories,int ID) throws IOException {
 
-        boolean isPresent = checkIfUserExitsEmail(email);
+        boolean isPresent = checkIfUserExistEmail(email);
         if(isPresent){
             System.out.println("You already have an account");
             //go to login page
@@ -53,10 +55,10 @@ public class manager_login_signin {
     public void writingUser(User user) throws IOException {
 
         String usersPath = "C:\\Users\\SAR Computers\\BudgetBobby\\Users.txt";
-        FileWriter fileWriter = new FileWriter(usersPath);
+        FileWriter fileWriter = new FileWriter(usersPath, true);
         String userString = user.getName()+"|"+user.getEmail()+"|"+user.getArea()+"|"+user.getCalories()+"|"+user.getID();
         //John Doe|john.doe@email.com|Gulshan|500|100
-        fileWriter.write(userString);
+        fileWriter.write("\n"+userString);
         fileWriter.close();
 
     }
