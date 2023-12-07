@@ -33,9 +33,9 @@ public class Manager {
         accounts = new UserAccounts();
         manager_login_signin = new manager_login_signin(accounts);
 
-        String restaurantPath = "C:\\Users\\SAR Computers\\BudgetBobby\\restaurants.txt";
-        String foodPath = "C:\\Users\\SAR Computers\\BudgetBobby\\FoodItems.txt";
-        String usersPath = "C:\\Users\\SAR Computers\\BudgetBobby\\Users.txt";
+        String restaurantPath = "src/restaurants.txt";
+        String foodPath = "src/FoodItems.txt";
+        String usersPath = "src/Users.txt";
 
         fileReading(restaurantPath, "restaurant");
         fileReading(foodPath, "fooditem");
@@ -92,7 +92,7 @@ public class Manager {
     public void readingUsers(String[] separated){
         int calorie = Integer.parseInt(separated[3]);
         int ID = Integer.parseInt(separated[4]);
-        User user = new User(separated[0],separated[1], separated[2],calorie, ID);
+        User user = new User(separated[0],separated[1], separated[2],calorie, ID, separated[5]);
         accounts.addUser(user);
     }
     public void addingIntoRestaurants(int foodItemsPerRestaurant){
@@ -109,12 +109,13 @@ public class Manager {
 
     //method to input user selection
     public void testing() throws IOException {
-//        System.out.println("enter id");
-//        int id = input.nextInt();
-//
-//        manager_login_signin.login(id);
+        
+
+        manager_login_signin.login(102,"MJ_#Pswd789");
+        manager_login_signin.login(234,"mujhayRomeJanaHai");
 //        manager_login_signin.signUp("john", "john.doe@email.com", "bahadrabad", 0,123);
 //        manager_login_signin.signUp("zainab", "zainab.rehman.frfr@gmail.com", "bahadrabad", 345,1234);
+//    
     }
 
     

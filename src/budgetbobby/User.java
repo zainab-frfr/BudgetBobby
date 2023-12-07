@@ -15,6 +15,7 @@ public class User implements Comparable<User> {
     private int calories;
 
     private int ID;
+    private String password;
     private double rating;
 
     private Restaurant restaurant;
@@ -23,12 +24,14 @@ public class User implements Comparable<User> {
 
     // user should also have a list of bills to track diff bills of diff times of orders
 
-    public User(String name, String email,String area, int calories, int id) {
+    public User(String name, String email,String area, int calories, int id, String password) {
         this.name = name;
         this.area = area;
         this.email = email;
         this.calories = calories;
         this.ID = id;
+        this.password = password;
+        
     }
 
     //create bill shall be called when the user confirms the order
@@ -86,6 +89,11 @@ public class User implements Comparable<User> {
         this.rating = rating;
     }
 
+    public String getPassword() {
+        return password;
+    }
+    
+    
     @Override
     public String toString() {
         return "User{" + "name=" + name + ", area=" + area + ", email=" + email + ", calories=" + calories /*+ ", orderedList="  + bill.getOrderedItems()*/ + '}'+'\n';
