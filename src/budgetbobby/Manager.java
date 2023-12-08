@@ -5,6 +5,7 @@
 package budgetbobby;
 
 import budgetbobby.DataStructures.LinkedList;
+import budgetbobby.DataStructures.Node;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -41,11 +42,11 @@ public class Manager {
         fileReading(foodPath, "fooditem");
         fileReading(usersPath, "users"); //columns are 5 but there is conflict with line 37
 
-        addingIntoRestaurants(10);
+        addingFoodItemsIntoRestaurants(10);
 
     }
 
-    //method for reading restaurants and creating restaurants in list
+    
     public void fileReading(String filePath, String str){
         try (FileReader fileReader = new FileReader(filePath);
              BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -55,7 +56,6 @@ public class Manager {
             // Read the file line by line
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-//                System.out.println(line);
                 String[] separated = line.split("\\|");
                 if(str.equalsIgnoreCase("restaurant")){
                     readingRestaurants(separated);
@@ -74,11 +74,8 @@ public class Manager {
             e.printStackTrace();
         }
     }
-    //method for reading existing users and storing them in list
-
-
     public void readingRestaurants(String[] separated){
-        Restaurant r = new Restaurant(separated[0], separated[1]);
+        Restaurant r = new Restaurant(separated[0], separated[1],Double.parseDouble(separated[2]));
         allRestaurants.insert(r);
     }
     public void readingItems(String[] separated){
@@ -95,7 +92,7 @@ public class Manager {
         User user = new User(separated[0],separated[1], separated[2],calorie, ID, separated[5]);
         accounts.addUser(user);
     }
-    public void addingIntoRestaurants(int foodItemsPerRestaurant){
+    public void addingFoodItemsIntoRestaurants(int foodItemsPerRestaurant){
         int count = 0;
         for(int i = 0; i < allRestaurants.getLength(); i++){
             for(int j = count; j < foodItemsPerRestaurant+count && j<foodItemLinkedList.getLength(); j++){
@@ -105,19 +102,27 @@ public class Manager {
         }
     }
 
-
-
-    //method to input user selection
-    public void testing() throws IOException {
+    
+    //method to calculate top rated 
+    public Restaurant topRated(){
+        Node<Restaurant> temp = allRestaurants.getHead();
+        Restaurant topRated = null;
+        double currMaxRating = 0;
+        double prevMaxRating = 0;
+        while(temp!=null){
+            prevMaxRating = currMaxRating;
+            currMaxRating = Math.max(prevMaxRating, temp.getData().getAvgRating());
+            if(prevMaxRating<currMaxRating){
+                topRated = temp.getData();
+            }
+            temp = temp.getNext();
+        }
         
-
-        manager_login_signin.login(102,"MJ_#Pswd789");
-        manager_login_signin.login(234,"mujhayRomeJanaHai");
-//        manager_login_signin.signUp("john", "john.doe@email.com", "bahadrabad", 0,123);
-//        manager_login_signin.signUp("zainab", "zainab.rehman.frfr@gmail.com", "bahadrabad", 345,1234);
-//    
+        return topRated;
     }
 
+    //method to input user selection
+    
     
     // filter display
 }

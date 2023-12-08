@@ -16,26 +16,18 @@ public class Restaurant {
    LinkedList<User> customers = new LinkedList<>();
    private String name;
    private String area;
-   //menu hashTable left
+   private double avgRating;
    HashMap<FoodItem> itemsOFRestaurant = new HashMap<>(15);//we're hashing based on price
 
-   public Restaurant(String name, String area) {
+   public Restaurant(String name, String area, double avgRating) {
       this.name = name;
       this.area = area;
+      this.avgRating = avgRating;
    }
-
-   private int ordersPerDay = 0; // our cycle of a day is one time program run
-   private double totalStars; // total stars by customers restaurant
-   
-   
-   // method of searching
+   // method of searching 
 
    
-   // method of calculating the avg rating of
-   public double avgRating(){
-      totalStars+= customers.getTail().getData().getRating();
-      return totalStars/this.ordersPerDay;
-   }
+   
 
    public void addFoodItem(FoodItem item){
       itemsOFRestaurant.insert(item);
@@ -43,7 +35,6 @@ public class Restaurant {
 
    public void addCustomer(User customer){
       customers.insert(customer);
-      ordersPerDay++;
    }
    public String getName() {
       return name;
@@ -53,13 +44,9 @@ public class Restaurant {
       return area;
    }
 
-   public int getOrdersPerDay() {
-      return ordersPerDay;
-   }
-
-   public double getStars() {
-      return totalStars;
-   }
+    public double getAvgRating() {
+        return avgRating;
+    }
 
    @Override
    public String toString() {
@@ -67,6 +54,6 @@ public class Restaurant {
               "name='" + name + '\'' +
               ", area='" + area + '\'' +
               ", itemsOFRestaurant=" + itemsOFRestaurant +
-              '}'+"\n";
+              ", Average Rating: "+avgRating+'}'+"\n";
    }
 }

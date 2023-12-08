@@ -12,7 +12,7 @@ public class Bill {
 
     private User user;
     private String restaurant;
-    private LinkedList<FoodItem> orderedItems;
+    private LinkedList<FoodItem> orderedItems= new LinkedList<>();;
 
     private double billAmount;
 
@@ -20,7 +20,7 @@ public class Bill {
         this.user = user;
         this.restaurant = restaurant;
         this.billAmount = 0;
-        orderedItems = new LinkedList<FoodItem>();
+        orderedItems = new LinkedList<>();
     }
 
     public LinkedList<FoodItem> getOrderedItems() {
@@ -59,17 +59,28 @@ public class Bill {
 
     }
 
-    public void sendEmail() {
+    public void sendConfirmationEmail() {
         try {
             // Command to execute Python script
             // Command to execute Python script
-            String pythonScriptPath = "src/send_email.py";
+            String pythonScriptPath = "src/send_confirmation_email.py";
 
             List<String> billArray = new ArrayList<>();
-            billArray.add("zainab.rehman.frfr@gmail.com");
-            billArray.add("Areeba");
-            billArray.add("ROLL EXPRESS");
-            billArray.add(String.valueOf(250.75)); // Convert double to String
+            billArray.add(user.getEmail());
+            billArray.add(user.getName());
+            billArray.add(restaurant);
+            billArray.add(String.valueOf(this.billAmount)); // Convert double to String
+
+            // Add FoodItems from orderedItems to billArray
+            Node<FoodItem> temp = orderedItems.getHead();
+            StringBuilder foodItemsStringBuilder = new StringBuilder(); // To store all food items as a single string
+            while (temp != null) {
+                String str = temp.getData().getName()+"&nbsp;&nbsp;&nbsp;&nbsp;"+temp.getData().getPrice()+"<br>";
+                foodItemsStringBuilder.append(str); 
+                temp = temp.getNext();
+            }
+
+            billArray.add(foodItemsStringBuilder.toString()); // Add all food items as a single string
 
             // Command and arguments
             List<String> cmd = new ArrayList<>();
