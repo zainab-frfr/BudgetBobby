@@ -4,10 +4,14 @@ package budgetbobby.DataStructures;
 public class MinHeap<T extends Comparable<T>>  {
     
     private class Node {
-        T data; int time;
+        T data; double time;
         Node left, right;
 
-        Node(T item, int time) {
+        public double getTime() {
+            return time;
+        }
+
+        Node(T item, double time) {
             data = item;   this.time = time;
             left = right = null;
         }
@@ -24,7 +28,7 @@ public class MinHeap<T extends Comparable<T>>  {
     }
 
     
-    public void insert(T key, int time) {
+    public void insert(T key, double time) {
         root = insertRec(root, key, time);
         currentHeapSize++;
     }
@@ -46,7 +50,7 @@ public class MinHeap<T extends Comparable<T>>  {
 //    }
 
 
-    private Node insertRec(Node root, T key, int time) {
+    private Node insertRec(Node root, T key, double time) {
         if (root == null) {
             return new Node(key, time);
         }

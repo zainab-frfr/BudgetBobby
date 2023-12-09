@@ -35,7 +35,7 @@ public class User implements Comparable<User> {
     }
 
     //create bill shall be called when the user confirms the order
-    public void createBill(Restaurant restaurant, int time) {
+    public void createBill(Restaurant restaurant, String time) {
         this.restaurant = restaurant;
         restaurant.addCustomer(this);
         //int time will be given by the user

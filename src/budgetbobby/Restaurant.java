@@ -63,13 +63,14 @@ public class Restaurant {
       }
 
 
+//.insert(curr);
 //      System.out.println(combinations[budget]);
 
-      for(int i = 0; i <combinations.length; i++ ){
-         System.out.println(combinations[budget].getTail().getData());
-         System.out.println("leaving"
-         );
-      }
+//      for(int i = 0; i <combinations.length; i++ ){
+//         System.out.println(combinations[budget].getTail().getData());
+//         System.out.println("leaving"
+//         );
+//      }
    }
    
    

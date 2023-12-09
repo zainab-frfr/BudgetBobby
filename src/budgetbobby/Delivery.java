@@ -31,10 +31,13 @@ public class Delivery {
 
 
     //adding orders into heap based on time
-    public void insertIntoHeap(Bill bill, int currentTime){
-        int timeDiff = Math.abs(currentTime-bill.getBillTime());
-        ofOrders.insert(bill,timeDiff);
+    public void insertIntoHeap(Bill bill){
+//      int timeDiff = Math.abs(currentTime-bill.getBillTime());
+        String[] t = bill.getBillTime().split(" ");
+        double time = Double.parseDouble(t[0]);
+        ofOrders.insert(bill,time);
         System.out.println("being inserted");
+        bill.sendConfirmationEmail();
     }
 
 

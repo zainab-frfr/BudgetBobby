@@ -13,16 +13,14 @@ public class Bill implements Comparable<Bill> {
     private User user;
     private String restaurant;
     private LinkedList<FoodItem> orderedItems= new LinkedList<>();;
-
     private double billAmount;
+    private final String billTime;
 
-    private final int billTime;
-
-    public int getBillTime() {
+    public String getBillTime() {
         return billTime;
     }
 
-    public Bill(User user, String restaurant, int time) {
+    public Bill(User user, String restaurant, String time) {
         this.user = user;
         this.restaurant = restaurant;
         this.billAmount = 0;
