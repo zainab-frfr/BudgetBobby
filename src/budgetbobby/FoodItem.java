@@ -68,7 +68,7 @@ public class FoodItem {
     @Override
     public String toString() {
         //return "FoodItem{" + "name=" + name + ", calorie=" + calorie + ", price=" + price + ", Category=" + Category + ", mealTime=" + mealTime + '}';
-        return "FoodItem{" + "name=" + name +", price=" + price+" }";
+        return "" + name +" " + price+"     ";
     }
 
 

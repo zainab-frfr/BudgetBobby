@@ -126,10 +126,15 @@ public class Manager {
         return topRated;
     }
 
-    public void testing(int budget){
-        System.out.println(allRestaurants.getHead().getData().itemsLinkedList);
-
-        allRestaurants.getHead().getData().searchCombinations(budget);
+    public void allCombinations(int budget){
+        
+          Node<Restaurant> curr = this.allRestaurants.getHead();
+          
+          while( curr != null){
+              System.out.println("Restaurant: "+curr.getData().getName());
+              curr.getData().searchCombinations(budget);
+              curr = curr.getNext();
+          }
     }
 
     //method to input user selection
