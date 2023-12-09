@@ -1,0 +1,7 @@
+| Restaurant Name   | Area | Average Rating             
+|-------------------|------------------|
+Tasty Bites|Bahadarabad|2.5
+Fresh Delights|Sindhi Muslim|4.9
+Savory Eats|Clifton|3.7
+Flavor Fusion|Gulshan|2.0
+Spice Palace|PECHS|4.4

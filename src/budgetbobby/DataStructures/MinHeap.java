@@ -4,11 +4,11 @@ package budgetbobby.DataStructures;
 public class MinHeap<T extends Comparable<T>>  {
     
     private class Node {
-        T data;
+        T data; int time;
         Node left, right;
 
-        Node(T item) {
-            data = item;
+        Node(T item, int time) {
+            data = item;   this.time = time;
             left = right = null;
         }
     }
@@ -24,28 +24,44 @@ public class MinHeap<T extends Comparable<T>>  {
     }
 
     
-    public void insert(T key) {
-        root = insertRec(root, key);
+    public void insert(T key, int time) {
+        root = insertRec(root, key, time);
         currentHeapSize++;
     }
+//
+//    private Node insertRec(Node root, T key, int time) {
+//        if (root == null) {
+//            return new Node(key, time);
+//        }
+//
+//        if (key.compareTo(root.data) < 0) {
+//            root.left = insertRec(root.left, key, root.left.time);
+//        }
+//
+//        else if (key.compareTo(root.data) > 0) {
+//            root.right = insertRec(root.right, key,  root.right.time);
+//        }
+//
+//        return root;
+//    }
 
-    private Node insertRec(Node root, T key) {
+
+    private Node insertRec(Node root, T key, int time) {
         if (root == null) {
-            return new Node(key);
+            return new Node(key, time);
         }
 
-        if (key.compareTo(root.data) < 0) {
-            root.left = insertRec(root.left, key);
-        } 
-        
-        else if (key.compareTo(root.data) > 0) {
-            root.right = insertRec(root.right, key);
+        // Compare based on time values
+        if (time < root.time || (time == root.time && key.compareTo(root.data) < 0)) {
+            root.left = insertRec(root.left, key, time);
+        } else {
+            root.right = insertRec(root.right, key, time);
         }
 
         return root;
     }
 
-    
+
     public T getMin() {
         if (root == null) {
             return null;

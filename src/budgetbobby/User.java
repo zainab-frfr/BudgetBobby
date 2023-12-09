@@ -35,10 +35,11 @@ public class User implements Comparable<User> {
     }
 
     //create bill shall be called when the user confirms the order
-    public void createBill(Restaurant restaurant) {
+    public void createBill(Restaurant restaurant, int time) {
         this.restaurant = restaurant;
         restaurant.addCustomer(this);
-        this.bill = new Bill(this, restaurant.getName());
+        //int time will be given by the user
+        this.bill = new Bill(this, restaurant.getName(),time);
     }
 
     public Bill getBill() {

@@ -33,6 +33,8 @@ public class Manager {
         foodItemLinkedList = new LinkedList<>();
         accounts = new UserAccounts();
         manager_login_signin = new manager_login_signin(accounts);
+        delivery = new Delivery();
+
 
         String restaurantPath = "src/restaurants.txt";
         String foodPath = "src/FoodItems.txt";
@@ -43,6 +45,8 @@ public class Manager {
         fileReading(usersPath, "users"); //columns are 5 but there is conflict with line 37
 
         addingFoodItemsIntoRestaurants(10);
+
+
 
     }
 
@@ -80,7 +84,7 @@ public class Manager {
     }
     public void readingItems(String[] separated){
         //System.out.println(Arrays.toString(separated));
-        double price = Double.parseDouble(separated[1]);
+        int price = Integer.parseInt(separated[1]);
         int calorie = Integer.parseInt(separated[3]);
         FoodItem foodItem = new FoodItem(separated[0],price,separated[2],calorie, separated[4]);
         foodItemLinkedList.insert(foodItem);
@@ -97,6 +101,7 @@ public class Manager {
         for(int i = 0; i < allRestaurants.getLength(); i++){
             for(int j = count; j < foodItemsPerRestaurant+count && j<foodItemLinkedList.getLength(); j++){
                 allRestaurants.getNode(i).getData().addFoodItem(foodItemLinkedList.getNode(j).getData());
+                allRestaurants.getNode(i).getData().addFoodItemToList(foodItemLinkedList.getNode(j).getData());
             }
             count += foodItemsPerRestaurant;
         }
@@ -119,6 +124,12 @@ public class Manager {
         }
         
         return topRated;
+    }
+
+    public void testing(int budget){
+        System.out.println(allRestaurants.getHead().getData().itemsLinkedList);
+
+        allRestaurants.getHead().getData().searchCombinations(budget);
     }
 
     //method to input user selection

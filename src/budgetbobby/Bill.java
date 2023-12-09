@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bill {
+public class Bill implements Comparable<Bill> {
 
     private User user;
     private String restaurant;
@@ -16,10 +16,17 @@ public class Bill {
 
     private double billAmount;
 
-    public Bill(User user, String restaurant) {
+    private final int billTime;
+
+    public int getBillTime() {
+        return billTime;
+    }
+
+    public Bill(User user, String restaurant, int time) {
         this.user = user;
         this.restaurant = restaurant;
         this.billAmount = 0;
+        this.billTime = time;
         orderedItems = new LinkedList<>();
     }
 
@@ -126,5 +133,10 @@ public class Bill {
         }
         s += "bill: " + getBillAmount();
         return s;
+    }
+
+    @Override
+    public int compareTo(Bill o) {
+        return 0;
     }
 }

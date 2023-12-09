@@ -4,6 +4,8 @@
  */
 package budgetbobby;
 
+import budgetbobby.DataStructures.MinHeap;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,11 +22,31 @@ public class Delivery {
     String restaurantName;
     String userArea;
     //priority queue of orders placed
+    MinHeap<Bill> ofOrders =  new MinHeap<>();
     User user;
     
     
     //shortest distance calculation method
-    
+
+
+
+    //adding orders into heap based on time
+    public void insertIntoHeap(Bill bill, int currentTime){
+        int timeDiff = Math.abs(currentTime-bill.getBillTime());
+        ofOrders.insert(bill,timeDiff);
+        System.out.println("being inserted");
+    }
+
+
+    //removal from heap.
+    // this method will also call sendDeliveredEmail method to send the email to the extracted orderBill
+
+     public void removeFromHeap(){
+        ofOrders.extractMin();
+        sendDeliveredEmail();
+     }
+
+
     // email sending and confirmation process
     public void sendDeliveredEmail(){
         try {

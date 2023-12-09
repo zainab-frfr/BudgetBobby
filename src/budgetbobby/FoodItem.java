@@ -11,11 +11,11 @@ package budgetbobby;
 public class FoodItem {
     private String name;
     private int calorie;
-    private double price;
+    private int price;
     private String Category;
     private String mealTime; //breakfast and meal
     
-    FoodItem(String name, double price, String Category, int calorie,   String mealTime){
+    FoodItem(String name, int price, String Category, int calorie,   String mealTime){
         this.name = name;
         this.calorie = calorie;
         this.price = price;
@@ -41,11 +41,11 @@ public class FoodItem {
         this.calorie = calorie;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -67,9 +67,11 @@ public class FoodItem {
 
     @Override
     public String toString() {
-        return "FoodItem{" + "name=" + name + ", calorie=" + calorie + ", price=" + price + ", Category=" + Category + ", mealTime=" + mealTime + '}';
+        //return "FoodItem{" + "name=" + name + ", calorie=" + calorie + ", price=" + price + ", Category=" + Category + ", mealTime=" + mealTime + '}';
+        return "FoodItem{" + "name=" + name +", price=" + price+" }";
     }
-    
+
+
     
     
     

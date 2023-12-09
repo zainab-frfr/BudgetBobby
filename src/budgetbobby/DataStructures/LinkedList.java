@@ -1,5 +1,6 @@
 package budgetbobby.DataStructures;
 
+import budgetbobby.FoodItem;
 import budgetbobby.User;
 
 import java.sql.SQLOutput;
@@ -110,18 +111,6 @@ public class LinkedList<T> {
         return null;
     }
 
-    public String toString() {
-        String s = "";
-        if(head==null) return "list is empty";
-
-        Node<T> Temp= head;
-        while(Temp!=null){
-            s += (Temp.data) + " ";
-            Temp=Temp.next;
-        }
-        return s;
-    }
-
     public boolean findUserEmail(String email){
         Node<User> x = (Node<User>) head;
         if (head == null) {
@@ -133,4 +122,50 @@ public class LinkedList<T> {
         }
         return x.getData().getEmail().compareTo(email)==0;
     }
+
+    public void append(LinkedList<T> list){
+        this.tail.next = list.head;
+        this.tail = list.tail;
+    }
+
+    public String toString() {
+        String s = "";
+        if(head==null) return "list is empty";
+
+        Node<T> Temp= head;
+        while(Temp!=null){
+            s += (Temp.data) + ", ";
+            Temp=Temp.next;
+        }
+        return s;
+    }
+
+    public String outerLinkedList() {
+        String s = "";
+        if(head==null) return "list is empty";
+
+        Node<T> Temp= head;
+            while (Temp != null) {
+                s += "Combination: " + (Temp.data) + "\n ";
+                Temp = Temp.next;
+            }
+
+        return s;
+    }
+
+//    public String checking(){
+//        String s = "";
+//        if(head==null) return null;
+//
+//        Node<T> Temp= head;
+//        if (Temp.getData() instanceof FoodItem) {
+//            while (Temp != null) {
+//                s += (((FoodItem) Temp.getData()).checking()) + " ";
+//                Temp = Temp.next;
+//            }
+//            return s;
+//        }
+//        return s;
+//    }
+
 }

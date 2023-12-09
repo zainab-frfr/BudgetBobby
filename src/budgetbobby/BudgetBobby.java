@@ -14,7 +14,8 @@ public class BudgetBobby {
      * @param args the command line arguments
      */
     public static void main(String[] args){
-        
+        Manager manage = new Manager();
+        manage.testing(8);
     }
     
 }
