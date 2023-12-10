@@ -1,80 +1,133 @@
 package budgetbobby.DataStructures;
 
-import java.util.PriorityQueue;
+public class Graphs{
+    Vertex[] vertexList; // array of vertices
+    int[][] adjMat; // adjacency matrix
+    int count;
 
-public class Graphs<T extends Comparable<T>> {
-    private GraphNode[] vertices;
-//    private T[][] adjMatrix;
-    private int count;
 
-    public Graphs(int size) {
-        vertices = new GraphNode[size];
-//        adjMatrix = (T[][]) new Object[size][size];
+    public Graphs(int s){
+        vertexList=new Vertex[s];
+        adjMat = new int[s][s];
         count = 0;
     }
 
     public void addVertex(String L) {
-        if (count < vertices.length) {
-            GraphNode ver = new GraphNode(L);
-            vertices[count] = ver;
+        Vertex v = new Vertex(L);
+        if(count < vertexList.length) {
+            vertexList[count] = v;
             count++;
         }
-    }
 
-    public GraphNode findVertex(String L) {
-        for (int i = 0; i < vertices.length; i++) {
-            if (vertices[i].getLabel().compareTo(L) == 0) {
-                return vertices[i];
+
+    }
+    public void addEdge(String L1, String L2, int weight) {
+        int p1 = 0; int p2 = 0; int countx = 0;
+        for(int i = 0; i < vertexList.length; i++){
+            if(vertexList[i].getLabel().equals(L1)){
+                p1 = i; countx++;
             }
-        }
-        return null;
-    }
+            else if (vertexList[i].getLabel().equals(L2)){
+                p2 = i;  countx++;
+            }
 
-    public void addEdge(String a1, String a2, int weight) {
-
-        GraphNode ver1 = findVertex(a1);
-        GraphNode ver2 = findVertex(a2);
-
-        if (ver1 != null &&  ver2 != null) {
-            GraphEdge ed1 = new GraphEdge(ver2, weight);
-            GraphEdge ed2 = new GraphEdge(ver1, weight);
-//            adjMatrix[ver1][ver2] = weight;
-//            adjMatrix[ver2][ver1] = weight;
-            ver1.getEdges().insert(ed1);
-            ver2.getEdges().insert(ed2);
-
-        } else {
-            System.out.println("vertex doesn't exist");
+            if(count==2) break;
         }
 
+        if(countx==2) {
+            adjMat[p1][p2] = weight;
+            adjMat[p2][p1] = weight;
+        }
     }
-
     public void display() {
-        System.out.println("Cites ");
-        for (GraphNode vertex : vertices) {
-            System.out.print(vertex.getLabel() + " ");
+
+        for(int i = 0; i < count; i++){
+            System.out.print(vertexList[i] + " ");
         }
 
-//        for (int i = 0; i < adjMatrix.length; i++) {
-//            for (int j = 0; j < adjMatrix[0].length; j++) {
-//                System.out.print(adjMatrix[i][j] + " ");
-//            }
-//            System.out.println();
-//
-//        }
+        System.out.println();
+        for(int i = 0; i < adjMat.length; i ++){
+            for(int j = 0; j < adjMat.length; j++){
+                System.out.print( adjMat[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+
     }
 
-    public void dikstras_Algorithm(String src){
-        PriorityQueue<GraphNode> pq = new PriorityQueue<>();
-        int dist[] = new int[vertices.length];
-        for(int i = 0; i <  vertices.length; i++){
-            if(!vertices[i].getLabel().equals(src)){
-                dist[i] = Integer.MAX_VALUE;
+    public int findVertex(String L) {
+        for (int i = 0; i < vertexList.length; i++) {
+            if (vertexList[i].getLabel().compareTo(L) == 0) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void shortestPath(int src){
+        String restaurant;
+
+        switch (src) {
+            case 0:
+                restaurant = "Bahadurabad";
+                break;
+            case 1:
+                restaurant = "Clifton";
+                break;
+            case 2:
+                restaurant = "Sindhi Muslim";
+                break;
+            case 3:
+                restaurant = "PECHS";
+                break;
+            case 4:
+                restaurant = "Gulshan";
+                break;
+            default:
+                restaurant = "";
+                break;
+        }
+        //boolean visited[] = new boolean[adjMat.length];
+//        int distance[] = new int[adjMat.length];
+
+        for(int i = 0; i <adjMat.length; i++){
+            vertexList[i].distance =  Integer.MAX_VALUE;
+        }
+
+
+        int idx = findVertex(restaurant);
+        vertexList[idx].distance = 0;
+
+        for(int i = 0; i < adjMat.length; i++){
+            int minVertex = findMinVertex();
+            vertexList[minVertex].visited = true;
+            for(int j = 0; j < adjMat.length; j++){
+                if(adjMat[minVertex][j]!=0 && !vertexList[j].visited && vertexList[minVertex].distance!=Integer.MAX_VALUE){
+                    int newDist = vertexList[minVertex].distance + adjMat[minVertex][j];
+                    if(newDist < vertexList[j].distance){
+                        vertexList[j].distance = newDist;
+                    }
+                }
             }
         }
 
-        boolean[] visited = new boolean[vertices.length];
 
-
+        for(int i  = 0; i <adjMat.length; i++){
+            System.out.println(restaurant +  " is " + vertexList[i].distance + " km from " + vertexList[i].getLabel());
+        }
     }
+
+    public  int  findMinVertex(){
+        int minVertex = -1;
+        for(int i = 0; i < vertexList.length; i++){
+            if(!vertexList[i].visited && (minVertex==-1 || vertexList[i].distance < vertexList[minVertex].distance)){
+                minVertex = i;
+            }
+        }
+
+        return  minVertex;
+    }
+
+
 }

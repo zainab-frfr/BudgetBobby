@@ -40,15 +40,28 @@ public class Restaurant {
             LinkedList<FoodItem> currList = new LinkedList<>();
             currList.insert(curr);
 
-            Boolean currFoodItemInserted = false;
+            boolean currFoodItemInserted = false;
             // catering for mealtime
-            if (mealtime.equalsIgnoreCase("Select Meal Time")) {
+            if (mealtime.equalsIgnoreCase("Select Meal Time") && category.equalsIgnoreCase("Select cuisine")) {
                 combinations[0].insert(currList);// inserting each food item at 0th index as meal time hasn't been selected
                 currFoodItemInserted = true;
-            } else if (mealtime.equalsIgnoreCase(curr.getMealTime())) {
+            }
+            else if(category.equalsIgnoreCase(curr.getCategory()) && mealtime.equalsIgnoreCase(curr.getMealTime())){
+                combinations[0].insert(currList);
+                currFoodItemInserted = true;
+            }
+
+            else if (mealtime.equalsIgnoreCase(curr.getMealTime())) {
                 combinations[0].insert(currList);// inserting only if mealtime matches what user has provided
                 currFoodItemInserted = true;
             }
+            else if(category.equalsIgnoreCase(curr.getCategory())){
+                combinations[0].insert(currList);
+                currFoodItemInserted =true;
+            }
+
+
+
 
             if (currFoodItemInserted) {
                 // iterating through combinations array; each index of the array represents a value of current max budget

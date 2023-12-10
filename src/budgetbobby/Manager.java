@@ -4,6 +4,7 @@
  */
 package budgetbobby;
 
+import budgetbobby.DataStructures.Graphs;
 import budgetbobby.DataStructures.LinkedList;
 import budgetbobby.DataStructures.Node;
 
@@ -24,6 +25,7 @@ public class Manager {
     UserAccounts accounts;
     Delivery delivery;
     manager_login_signin manager_login_signin;
+    Graphs graphs = new Graphs(5);
 
     LinkedList<Restaurant> allRestaurants;
     LinkedList<FoodItem> foodItemLinkedList;
@@ -138,6 +140,32 @@ public class Manager {
 
     }
 
+
+
     //method to input user selection
+
+
+    public void RestaurantsDistances(){
+
+        graphs.addVertex("Bahadurabad");
+        graphs.addVertex("Clifton");
+        graphs.addVertex("Sindhi Muslim");
+        graphs.addVertex("PECHS");
+        graphs.addVertex("Gulshan");
+
+        graphs.addEdge("Bahadurabad", "Sindhi Muslim", 5);
+        graphs.addEdge("Bahadurabad", "Clifton", 10);
+        graphs.addEdge("Bahadurabad", "Gulshan", 15);
+        graphs.addEdge("Bahadurabad", "PECHS", 20);
+
+        graphs.addEdge("Sindhi Muslim", "Clifton", 8);
+        graphs.addEdge("Sindhi Muslim", "Gulshan", 12);
+        graphs.addEdge("Sindhi Muslim", "PECHS", 18);
+
+        graphs.addEdge("Clifton", "Gulshan", 6);
+        graphs.addEdge("Clifton", "PECHS", 14);
+
+        graphs.addEdge("Gulshan", "PECHS", 10);
+    }
     // filter display
 }
