@@ -29,6 +29,8 @@ public class Manager {
 
     LinkedList<Restaurant> allRestaurants;
     LinkedList<FoodItem> foodItemLinkedList;
+    
+    User currentUser;
 
     Scanner input = new Scanner(System.in);
 
@@ -123,27 +125,6 @@ public class Manager {
         return topRated;
     }
 
-//    public void allCombinations(int budget, int calories, String mealtime, String category) {
-//
-////        Node<Restaurant> curr = this.allRestaurants.getHead();
-////
-////        while (curr != null) {
-////            System.out.println("Restaurant: " + curr.getData().getName());
-////            curr.getData().searchCombinations(budget, calories, mealtime, category);
-////            curr = curr.getNext();
-////        }
-//
-//        Node<Restaurant> curr = this.allRestaurants.getHead();
-//        System.out.println("Restaurant: " + curr.getData().getName());
-//        curr.getData().searchCombinations(budget, calories, mealtime, category);
-//
-//    }
-
-
-
-    //method to input user selection
-
-
     public void RestaurantsDistances(){
 
         graphs.addVertex("Bahadurabad");
@@ -188,6 +169,10 @@ public class Manager {
     }
 
 
-
-    // filter display
+    public boolean checkUserLogin(String userID, String password){
+        int id = Integer.parseInt(userID);
+        this.currentUser = accounts.findUser(id);
+        
+        return this.currentUser!=null;
+    }
 }
