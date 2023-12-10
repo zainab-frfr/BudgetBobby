@@ -10,8 +10,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
+import java.time.LocalTime;
 /**
  *
  * @author zaina
@@ -28,37 +29,91 @@ public class Delivery {
     
     //shortest distance calculation method
 
-
-
-    //adding orders into heap based on time
-    public void insertIntoHeap(Bill bill){
-//      int timeDiff = Math.abs(currentTime-bill.getBillTime());
-        String[] t = bill.getBillTime().split(" ");
-        double time = Double.parseDouble(t[0]);
-        ofOrders.insert(bill,time);
-        System.out.println("being inserted");
-        bill.sendConfirmationEmail();
+    private double convertToMinutes(String time) {
+        double hours = 0; double mins = 0;
+        if(time.equalsIgnoreCase("As soon as possible")){
+            mins = 1;
+        }
+        else {
+            String[] t = time.split(" ");
+            System.out.println(Arrays.toString(t));
+            System.out.println(t.length);
+            double num = Double.parseDouble(t[0]);
+            String min_hr = t[1];
+            if (min_hr.equalsIgnoreCase("hour")) {
+                hours = num;
+                if (hours == 1.5) {
+                    hours = 1;
+                    mins = 30;
+                } else if (hours == 2.5) {
+                    hours = 2;
+                    mins = 30;
+                }
+            } else if (min_hr.equalsIgnoreCase("minutes")) {
+                mins = num;
+            }
+        }
+        return hours * 60 + mins;
     }
 
+    //adding orders into heap based on time
+//    public void insertIntoHeap(Bill bill){
+////      int timeDiff = Math.abs(currentTime-bill.getBillTime());
+//        String[] t = bill.getBillTime().split(" ");
+//        double time = Double.parseDouble(t[0]);
+//        ofOrders.insert(bill,time);
+//        System.out.println("being inserted");
+//        bill.sendConfirmationEmail();
+//    }
+
+    public void insertIntoHeap(Bill bill) {
+        double time = convertToMinutes(bill.getBillTime());
+        ofOrders.insert(bill, time);
+        System.out.println("Being inserted");
+        bill.sendConfirmationEmail();
+    }
 
     //removal from heap.
     // this method will also call sendDeliveredEmail method to send the email to the extracted orderBill
 
-     public void removeFromHeap(){
-        ofOrders.extractMin();
-        sendDeliveredEmail();
-     }
 
+
+
+
+    public void removeFromHeap() {
+        LocalTime currentTime = LocalTime.now();
+
+
+        if (!ofOrders.isEmpty()) {
+            // Get the time of the order at the top of the heap
+            double orderTime = ofOrders.getMinPriority();
+
+            // Compare with the current time
+            if (orderTime <= currentTime.toSecondOfDay() / 60.0) {
+                Bill removedBill = ofOrders.extractMin();
+                System.out.println(removedBill);
+                sendDeliveredEmail(removedBill.emailAddr(), removedBill.getUserName().getName());
+            }
+        }
+    }
+
+
+
+//    public void removeFromHeap(){
+//        ofOrders.extractMin();
+//        sendDeliveredEmail();
+//     }
+//
 
     // email sending and confirmation process
-    public void sendDeliveredEmail(){
+    public void sendDeliveredEmail(String emailId, String userNName){
         try {
             // Command to execute Python script
             String pythonScriptPath = "src/send_delivered_email.py";
 
             List<String> deliveredArray = new ArrayList<>();
-            deliveredArray.add(user.getEmail());
-            deliveredArray.add(user.getName());
+            deliveredArray.add(emailId);
+            deliveredArray.add(userNName);
             deliveredArray.add(restaurantName); 
             
             // Command and arguments

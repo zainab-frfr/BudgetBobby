@@ -21,6 +21,10 @@ public class MinHeap<T extends Comparable<T>>  {
     protected Node root;
     private int currentHeapSize;
 
+
+    public boolean isEmpty(){
+        return root==null;
+    }
     
     public MinHeap() {
         this.root = null;
@@ -50,6 +54,14 @@ public class MinHeap<T extends Comparable<T>>  {
 //    }
 
 
+
+    public double getMinPriority() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Heap is empty");
+        }
+        // Assuming that the priority of the minimum element is stored in the root
+        return root.time; // Replace with the actual field or method that represents the priority
+    }
     private Node insertRec(Node root, T key, double time) {
         if (root == null) {
             return new Node(key, time);

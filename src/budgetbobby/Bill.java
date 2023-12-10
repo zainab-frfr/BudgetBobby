@@ -20,6 +20,8 @@ public class Bill implements Comparable<Bill> {
         return billTime;
     }
 
+
+
     public Bill(User user, String restaurant, String time) {
         this.user = user;
         this.restaurant = restaurant;
@@ -133,6 +135,10 @@ public class Bill implements Comparable<Bill> {
         return s;
     }
 
+
+    public String emailAddr(){
+        return this.user.getEmail();
+    }
     @Override
     public int compareTo(Bill o) {
         return 0;
