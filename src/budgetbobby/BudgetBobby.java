@@ -34,7 +34,7 @@ public class BudgetBobby {
 
 
         User u = new User("Areeba", "areebafatima5294@gmail.com", "Gulshan", 100, "JD_#Pswd321");
-        Bill bill = new Bill(u, manager.allRestaurants.getNode(0).getData().getName(), "1 minute");
+        Bill bill = new Bill(u, manager.allRestaurants.getNode(0).getData().getName(), "3 minutes");
         manager.delivery.insertIntoHeap(bill);
         manager.delivery.removeFromHeap();
     }

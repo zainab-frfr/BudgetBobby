@@ -139,6 +139,8 @@ public class Bill implements Comparable<Bill> {
     public String emailAddr(){
         return this.user.getEmail();
     }
+
+
     @Override
     public int compareTo(Bill o) {
         return 0;

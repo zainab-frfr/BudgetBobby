@@ -31,7 +31,7 @@ public class Delivery {
 
     private double convertToMinutes(String time) {
         double hours = 0; double mins = 0;
-        if(time.equalsIgnoreCase("As soon as possible")){
+        if(time.equalsIgnoreCase("Asap")){
             mins = 1;
         }
         else {
@@ -92,7 +92,7 @@ public class Delivery {
             if (orderTime <= currentTime.toSecondOfDay() / 60.0) {
                 Bill removedBill = ofOrders.extractMin();
                 System.out.println(removedBill);
-                sendDeliveredEmail(removedBill.emailAddr(), removedBill.getUserName().getName());
+                sendDeliveredEmail(removedBill.emailAddr(), removedBill.getUserName().getName(), removedBill.getRestaurant());
             }
         }
     }
@@ -106,7 +106,7 @@ public class Delivery {
 //
 
     // email sending and confirmation process
-    public void sendDeliveredEmail(String emailId, String userNName){
+    public void sendDeliveredEmail(String emailId, String userNName, String restaurantName){
         try {
             // Command to execute Python script
             String pythonScriptPath = "src/send_delivered_email.py";
@@ -114,7 +114,7 @@ public class Delivery {
             List<String> deliveredArray = new ArrayList<>();
             deliveredArray.add(emailId);
             deliveredArray.add(userNName);
-            deliveredArray.add(restaurantName); 
+            deliveredArray.add(restaurantName);
             
             // Command and arguments
             List<String> cmd = new ArrayList<>();
@@ -122,6 +122,7 @@ public class Delivery {
             cmd.add(pythonScriptPath);
             cmd.addAll(deliveredArray); // Add all elements from deliveredArray to the command list
 
+            System.out.println("cmd: " + cmd);
             // Create ProcessBuilder instance
             ProcessBuilder pb = new ProcessBuilder(cmd);
 
