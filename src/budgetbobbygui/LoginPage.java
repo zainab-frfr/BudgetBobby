@@ -1,4 +1,3 @@
-
 package budgetbobbygui;
 
 import java.awt.Color;
@@ -14,66 +13,68 @@ public class LoginPage extends javax.swing.JFrame {
 
     public LoginPage() {
         initComponents();
-     //   setSize(Toolkit.getDefaultToolkit().getScreenSize());
-     
-     setSize(600,1000);
-     setLocationRelativeTo(null);
-    
-    
+        //   setSize(Toolkit.getDefaultToolkit().getScreenSize());
+
+        setSize(600, 1000);
+        setLocationRelativeTo(null);
+
         LoginInfo login = new LoginInfo();
         Register register = new Register();
         slider.setAnimate(10);
-        slider.init(login,register);
-        login.addEventRegister(new ActionListener () {
-            public void actionPerformed(ActionEvent ae){
+        slider.init(login, register);
+        login.addEventRegister(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
                 slider.show(1);
                 register.register();
             }
         });
-          register.addEventlogin(new ActionListener () {
-            public void actionPerformed(ActionEvent ae){
+        register.addEventlogin(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
                 slider.show(0);
+
                 login.login();
             }
         });
-          
-         login.loginEvent(new ActionListener () {
-             public void actionPerformed(ActionEvent ae){
-                 HomePageFrame hpf = new HomePageFrame();
-                 hpf.show();
-                 
-                 dispose();
-                        
-             }
-         });
-         
-         
-         register.regEvent(new ActionListener () {
-             public void actionPerformed(ActionEvent ae){
-                 HomePageFrame hpf = new HomePageFrame();
-                 hpf.show();
-                 
-                 dispose();
-                        
-             }
-         });
+
+        login.loginEvent(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                if (login.foundUser==true) {
+                    HomePageFrame hpf = new HomePageFrame();
+                    hpf.show();
+
+                    dispose();
+                }
+
+            }
+        });
+
+        register.regEvent(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                HomePageFrame hpf = new HomePageFrame();
+                hpf.show();
+
+                dispose();
+
+            }
+        });
 
     }
-    
-       class jPanelGradient extends JPanel {
-            @Override
-            protected void paintComponent(Graphics g){
-                Graphics2D g2d = (Graphics2D) g;
-                int width = getWidth();
-                int height = getHeight();
-                
-                Color color1 = new Color (253,231,76);
-               // Color color1 = new Color  (249,237,204);
-               Color color2 = new Color  (238,39,30);
-                GradientPaint gp = new GradientPaint(0,0,color1,180,height,color2);
-                g2d.setPaint(gp);
-                g2d.fillRect(0,0,width,height);
-            }
+
+    class jPanelGradient extends JPanel {
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2d = (Graphics2D) g;
+            int width = getWidth();
+            int height = getHeight();
+
+            Color color1 = new Color(253, 231, 76);
+            // Color color1 = new Color  (249,237,204);
+            Color color2 = new Color(238, 39, 30);
+            GradientPaint gp = new GradientPaint(0, 0, color1, 180, height, color2);
+            g2d.setPaint(gp);
+            g2d.fillRect(0, 0, width, height);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -179,7 +180,7 @@ public class LoginPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
-      
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -203,11 +204,9 @@ public class LoginPage extends javax.swing.JFrame {
             public void run() {
                 LoginPage loginPage = new LoginPage();
                 loginPage.setVisible(true);
-               // loginPage.setSize(400, 400);
+                // loginPage.setSize(400, 400);
                 loginPage.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-                     
-             
             }
         });
     }

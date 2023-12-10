@@ -1,16 +1,26 @@
 
 package budgetbobbygui;
 
+import budgetbobby.Manager;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 public class LoginInfo extends javax.swing.JPanel {
 
     /**
      * Creates new form LoginInfo
      */
+    public boolean foundUser;
+    
+    Manager manage;
     public LoginInfo() {
         initComponents();
+        manage = new Manager();
+        this.jLabel1.setVisible(false);
     }
 
     public void login(){
@@ -162,7 +172,15 @@ public class LoginInfo extends javax.swing.JPanel {
     }//GEN-LAST:event_passwordTextFieldMouseClicked
 
     private void loginBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBActionPerformed
-     
+        
+        String userID = this.usernameTextfield.getText();
+        String pass = this.jPasswordField1.getText();
+        
+        foundUser = manage.checkUserLogin(userID, pass);
+        
+        if(!foundUser){
+            this.jLabel1.setVisible(true);
+        }
     }//GEN-LAST:event_loginBActionPerformed
 
 
@@ -179,4 +197,54 @@ public class LoginInfo extends javax.swing.JPanel {
     private javax.swing.JLabel passwordTextField;
     private javax.swing.JTextField usernameTextfield;
     // End of variables declaration//GEN-END:variables
+
+    public Manager getManage() {
+        return manage;
+    }
+
+    public JButton getCmdRegister() {
+        return cmdRegister;
+    }
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public JLabel getjLabel4() {
+        return jLabel4;
+    }
+
+    public JLabel getjLabel5() {
+        return jLabel5;
+    }
+
+    public JLabel getjLabel6() {
+        return jLabel6;
+    }
+
+    public JPasswordField getjPasswordField1() {
+        return jPasswordField1;
+    }
+
+    public JButton getLoginB() {
+        return loginB;
+    }
+
+    public JLabel getPasswordTextField() {
+        return passwordTextField;
+    }
+
+    public JTextField getUsernameTextfield() {
+        return usernameTextfield;
+    }
+
+    
 }

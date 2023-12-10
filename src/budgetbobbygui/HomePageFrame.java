@@ -100,7 +100,7 @@ public class HomePageFrame extends javax.swing.JFrame {
                 .event(new EventDrawer(){
             @Override
             public void selected(int i, DrawerItem di) {
-                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
             
             public void closed() {
