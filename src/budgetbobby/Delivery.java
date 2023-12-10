@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.time.LocalTime;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 /**
  *
  * @author zaina
@@ -66,13 +70,37 @@ public class Delivery {
 //        bill.sendConfirmationEmail();
 //    }
 
+//    public void insertIntoHeap(Bill bill) {
+//        double time = convertToMinutes(bill.getBillTime());
+//        ofOrders.insert(bill, time);
+//        System.out.println("Being inserted");
+//        bill.sendConfirmationEmail();
+//    }
+
+
     public void insertIntoHeap(Bill bill) {
         double time = convertToMinutes(bill.getBillTime());
         ofOrders.insert(bill, time);
         System.out.println("Being inserted");
+
+        // Schedule the task to send the email after the specified time
+        scheduleEmailSending(bill, (long) (time * 60 * 1000)); // Convert minutes to milliseconds
         bill.sendConfirmationEmail();
     }
 
+
+
+    private void scheduleEmailSending(Bill bill, long delay) {
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+
+        // Schedule the task to run after the specified delay
+        executorService.schedule(() -> {
+            removeFromHeap(bill);
+        }, delay, TimeUnit.MILLISECONDS);
+
+        // Shutdown the executor service when it's no longer needed
+        executorService.shutdown();
+    }
     //removal from heap.
     // this method will also call sendDeliveredEmail method to send the email to the extracted orderBill
 
@@ -80,20 +108,29 @@ public class Delivery {
 
 
 
-    public void removeFromHeap() {
-        LocalTime currentTime = LocalTime.now();
+//    public void removeFromHeap() {
+//        LocalTime currentTime = LocalTime.now();
+//
+//        if (!ofOrders.isEmpty()) {
+//            // Get the time of the order at the top of the heap
+//            double orderTime = ofOrders.getMinPriority();
+//
+//            // Compare with the current time
+//            if (orderTime <= currentTime.toSecondOfDay() / 60.0) {
+//                Bill removedBill = ofOrders.extractMin();
+//                System.out.println(removedBill);
+//                sendDeliveredEmail(removedBill.emailAddr(), removedBill.getUserName().getName(), removedBill.getRestaurant());
+//            }
+//        }
+//    }
 
+    public void removeFromHeap(Bill bill) {
+        // Get the time of the order
+        double orderTime = convertToMinutes(bill.getBillTime());
 
-        if (!ofOrders.isEmpty()) {
-            // Get the time of the order at the top of the heap
-            double orderTime = ofOrders.getMinPriority();
-
-            // Compare with the current time
-            if (orderTime <= currentTime.toSecondOfDay() / 60.0) {
-                Bill removedBill = ofOrders.extractMin();
-                System.out.println(removedBill);
-                sendDeliveredEmail(removedBill.emailAddr(), removedBill.getUserName().getName(), removedBill.getRestaurant());
-            }
+        // Compare with the current time
+        if (orderTime <= LocalTime.now().toSecondOfDay() / 60.0) {
+            sendDeliveredEmail(bill.emailAddr(), bill.getUserName().getName(), bill.getRestaurant());
         }
     }
 
