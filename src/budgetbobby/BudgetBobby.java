@@ -18,11 +18,15 @@ public class BudgetBobby {
      */
     public static void main(String[] args) {
 
+
         //0:Bahadurabad
         //1: clifton
         //2: Sindhi Muslim
         //3: PECHS
         //4: Gulshan
+
+        
+
 
         Manager manager = new Manager();
         manager.RestaurantsDistances();
