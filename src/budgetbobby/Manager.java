@@ -89,9 +89,8 @@ public class Manager {
     }
 
     public void readingUsers(String[] separated) {
-        int calorie = Integer.parseInt(separated[3]);
-        int ID = Integer.parseInt(separated[4]);
-        User user = new User(separated[0], separated[1], separated[2], calorie, ID, separated[5]);
+        int ID = Integer.parseInt(separated[3]);
+        User user = new User(separated[0], separated[1], separated[2], ID, separated[4]);
         accounts.addUser(user);
     }
 
@@ -124,21 +123,21 @@ public class Manager {
         return topRated;
     }
 
-    public void allCombinations(int budget, int calories, String mealtime, String category) {
-
-//        Node<Restaurant> curr = this.allRestaurants.getHead();
+//    public void allCombinations(int budget, int calories, String mealtime, String category) {
 //
-//        while (curr != null) {
-//            System.out.println("Restaurant: " + curr.getData().getName());
-//            curr.getData().searchCombinations(budget, calories, mealtime, category);
-//            curr = curr.getNext();
-//        }
-
-        Node<Restaurant> curr = this.allRestaurants.getHead();
-        System.out.println("Restaurant: " + curr.getData().getName());
-        curr.getData().searchCombinations(budget, calories, mealtime, category);
-
-    }
+////        Node<Restaurant> curr = this.allRestaurants.getHead();
+////
+////        while (curr != null) {
+////            System.out.println("Restaurant: " + curr.getData().getName());
+////            curr.getData().searchCombinations(budget, calories, mealtime, category);
+////            curr = curr.getNext();
+////        }
+//
+//        Node<Restaurant> curr = this.allRestaurants.getHead();
+//        System.out.println("Restaurant: " + curr.getData().getName());
+//        curr.getData().searchCombinations(budget, calories, mealtime, category);
+//
+//    }
 
 
 
@@ -167,5 +166,28 @@ public class Manager {
 
         graphs.addEdge("Gulshan", "PECHS", 10);
     }
+
+
+
+
+    public void combinationAllRestaurants(int areaNo,int budget, int calories, String mealtime, String category){
+        String[] areasNearestToFarthest = graphs.shortestPath(areaNo);
+        for (String area : areasNearestToFarthest) {
+            System.out.println("*****************" + area + "*****************");
+
+            // Iterate through restaurants and print combinations only for those in the current area
+            for (int j = 0; j < allRestaurants.getLength(); j++) {
+                Restaurant restaurant = allRestaurants.getNode(j).getData();
+                if (restaurant.getArea().equals(area)) {
+                    System.out.println("*****************" + restaurant.getName() + "*****************");
+                    restaurant.searchCombinations(budget, calories, mealtime, category);
+                }
+            }
+        }
+
+    }
+
+
+
     // filter display
 }

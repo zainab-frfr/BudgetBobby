@@ -118,20 +118,15 @@ public class Restaurant {
             }
         }
 
-//.insert(curr);
-//      System.out.println(combinations[budget]);
         for (int i = 1; i < combinations.length; i++) {
             System.out.println("Combinations for " + i);
             System.out.println(combinations[i].outerLinkedList() + "\n");
         }
+
+
     }
 
 
-//      for(int i = 0; i <combinations.length; i++ ){
-//         System.out.println(combinations[budget].getTail().getData());
-//         System.out.println("leaving"
-//         );
-//      }
 
    
    

@@ -1,5 +1,10 @@
 package budgetbobby.DataStructures;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class Graphs{
     Vertex[] vertexList; // array of vertices
     int[][] adjMat; // adjacency matrix
@@ -65,7 +70,7 @@ public class Graphs{
         return -1;
     }
 
-    public void shortestPath(int src){
+    public String[] shortestPath(int src){
         String restaurant;
 
         switch (src) {
@@ -113,9 +118,33 @@ public class Graphs{
         }
 
 
-        for(int i  = 0; i <adjMat.length; i++){
-            System.out.println(restaurant +  " is " + vertexList[i].distance + " km from " + vertexList[i].getLabel());
+//
+//        for(int i  = 0; i <adjMat.length; i++){
+//            System.out.println(restaurant +  " is " + vertexList[i].distance + " km from " + vertexList[i].getLabel());
+//        }
+
+
+
+        List<DistanceAreaPair> distanceAreaPairs = new ArrayList<>();
+
+        for (int i = 0; i < adjMat.length; i++) {
+            distanceAreaPairs.add(new DistanceAreaPair(vertexList[i].distance, vertexList[i].getLabel()));
         }
+
+        // Sort the list based on distances
+        Collections.sort(distanceAreaPairs);
+
+
+        String[] areaRestaurant = new String[5];
+        // Print the sorted list
+        for (int i = 0; i < distanceAreaPairs.size(); i++) {
+            DistanceAreaPair pair = distanceAreaPairs.get(i);
+            System.out.println(restaurant + " is " + pair.getDistance() + " km from " + pair.getArea());
+            areaRestaurant[i] = pair.getArea();
+        }
+
+       // System.out.println(Arrays.toString(areaRestaurant));
+        return areaRestaurant;
     }
 
     public  int  findMinVertex(){

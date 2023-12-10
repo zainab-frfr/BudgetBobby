@@ -12,7 +12,6 @@ public class User implements Comparable<User> {
     private String name;
     private String area;
     private String email;
-    private int calories;
 
     private int ID;
     private String password;
@@ -24,11 +23,10 @@ public class User implements Comparable<User> {
 
     // user should also have a list of bills to track diff bills of diff times of orders
 
-    public User(String name, String email,String area, int calories, int id, String password) {
+    public User(String name, String email,String area, int id, String password) {
         this.name = name;
         this.area = area;
         this.email = email;
-        this.calories = calories;
         this.ID = id;
         this.password = password;
         
@@ -74,13 +72,6 @@ public class User implements Comparable<User> {
         this.email = email;
     }
 
-    public int getCalories() {
-        return calories;
-    }
-
-    public void setCalories(int calories) {
-        this.calories = calories;
-    }
 
     public double getRating() {
         return rating;
@@ -97,7 +88,7 @@ public class User implements Comparable<User> {
     
     @Override
     public String toString() {
-        return "User{" + "name=" + name + ", area=" + area + ", email=" + email + ", calories=" + calories /*+ ", orderedList="  + bill.getOrderedItems()*/ + '}'+'\n';
+        return "User{" + "name=" + name + ", area=" + area + ", email=" + email +  /*+ ", orderedList="  + bill.getOrderedItems()*/ + '}'+'\n';
     }
 
 

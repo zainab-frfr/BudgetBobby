@@ -38,7 +38,7 @@ public class manager_login_signin {
     //signup methods
 
     //id will be generated in manager and that will be sent here from the file by one increment in the counter
-    public void signUp(String userName, String email, String area, int calories, int ID, String password) throws IOException {
+    public void signUp(String userName, String email, String area, int ID, String password) throws IOException {
 
         boolean isPresent = checkIfUserExistEmail(email);
         if (isPresent) {
@@ -46,7 +46,7 @@ public class manager_login_signin {
             //go to login page
             //login(ID);
         } else {
-            User toAdd = new User(userName, email, area, calories, ID, password);
+            User toAdd = new User(userName, email, area, ID, password);
             accounts.addUser(toAdd);
             writingUser(toAdd);
 
@@ -57,7 +57,7 @@ public class manager_login_signin {
 
         String usersPath = "src/Users.txt";
         FileWriter fileWriter = new FileWriter(usersPath, true);
-        String userString = user.getName() + "|" + user.getEmail() + "|" + user.getArea() + "|" + user.getCalories() + "|" + user.getID()+"|"+user.getPassword();
+        String userString = user.getName() + "|" + user.getEmail() + "|" + user.getArea() + "|" +  user.getID()+"|"+user.getPassword();
         //John Doe|john.doe@email.com|Gulshan|500|100
         fileWriter.write("\n" + userString);
         fileWriter.close();
