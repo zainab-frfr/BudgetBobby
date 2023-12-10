@@ -1,13 +1,15 @@
 package budgetbobby.DataStructures;
 
+import java.util.PriorityQueue;
+
 public class Graphs<T extends Comparable<T>> {
     private GraphNode[] vertices;
-    private T[][] adjMatrix;
+//    private T[][] adjMatrix;
     private int count;
 
     public Graphs(int size) {
         vertices = new GraphNode[size];
-        adjMatrix = (T[][]) new Object[size][size];
+//        adjMatrix = (T[][]) new Object[size][size];
         count = 0;
     }
 
@@ -19,27 +21,27 @@ public class Graphs<T extends Comparable<T>> {
         }
     }
 
-    public int findVertex(T L) {
+    public GraphNode findVertex(String L) {
         for (int i = 0; i < vertices.length; i++) {
             if (vertices[i].getLabel().compareTo(L) == 0) {
-                return i;
+                return vertices[i];
             }
         }
-        return -1;
+        return null;
     }
 
-    public void addEdge(T a1, T a2, T weight) {
+    public void addEdge(String a1, String a2, int weight) {
 
-        int ver1 = findVertex(a1);
-        int ver2 = findVertex(a2);
+        GraphNode ver1 = findVertex(a1);
+        GraphNode ver2 = findVertex(a2);
 
-        if (ver1 != -1 || ver2 != -1) {
-            GraphEdge ed1 = new GraphEdge(vertices[ver2], weight);
-            GraphEdge ed2 = new GraphEdge(vertices[ver2], weight);
-            adjMatrix[ver1][ver2] = weight;
-            adjMatrix[ver2][ver1] = weight;
-            vertices[ver1].getEdges().insert(ed1);
-            vertices[ver2].getEdges().insert(ed2);
+        if (ver1 != null &&  ver2 != null) {
+            GraphEdge ed1 = new GraphEdge(ver2, weight);
+            GraphEdge ed2 = new GraphEdge(ver1, weight);
+//            adjMatrix[ver1][ver2] = weight;
+//            adjMatrix[ver2][ver1] = weight;
+            ver1.getEdges().insert(ed1);
+            ver2.getEdges().insert(ed2);
 
         } else {
             System.out.println("vertex doesn't exist");
@@ -53,12 +55,26 @@ public class Graphs<T extends Comparable<T>> {
             System.out.print(vertex.getLabel() + " ");
         }
 
-        for (int i = 0; i < adjMatrix.length; i++) {
-            for (int j = 0; j < adjMatrix[0].length; j++) {
-                System.out.print(adjMatrix[i][j] + " ");
-            }
-            System.out.println();
+//        for (int i = 0; i < adjMatrix.length; i++) {
+//            for (int j = 0; j < adjMatrix[0].length; j++) {
+//                System.out.print(adjMatrix[i][j] + " ");
+//            }
+//            System.out.println();
+//
+//        }
+    }
 
+    public void dikstras_Algorithm(String src){
+        PriorityQueue<GraphNode> pq = new PriorityQueue<>();
+        int dist[] = new int[vertices.length];
+        for(int i = 0; i <  vertices.length; i++){
+            if(!vertices[i].getLabel().equals(src)){
+                dist[i] = Integer.MAX_VALUE;
+            }
         }
+
+        boolean[] visited = new boolean[vertices.length];
+
+
     }
 }

@@ -1,18 +1,18 @@
 package budgetbobby.DataStructures;
 
-public class GraphNode <T extends Comparable<T>> {
-    private T label;
+public class GraphNode {
+    private String label;
     private LinkedList<GraphEdge> edges;
 
-    public GraphNode(T label) {
+    public GraphNode(String label) {
         this.label = label;
     }
 
-    public T getLabel() {
+    public String getLabel() {
         return label;
     }
 
-    public void setLabel(T label) {
+    public void setLabel(String label) {
         this.label = label;
     }
 

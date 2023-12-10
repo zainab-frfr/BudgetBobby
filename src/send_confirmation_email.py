@@ -31,7 +31,7 @@ message["Subject"] = subject
 #{bill[1]} {bill[2]}
 
 body = f"Hello {username},<br><br>You're all set! Your order from {restaurant} will be on its way soon.<br>"\
-       f"Please keep Rs.{bill_amount} ready!<br><br><b>ITEM &nbsp;&nbsp; PRICE</b><br><br>{food_items}<br><br>Until then,<br>Bobby<br><i>Save, Eat, Repeat!</i> "
+       f"Please keep Rs.{bill_amount} ready!<br><br><b>ITEM &nbsp;&nbsp;&nbsp;&nbsp; PRICE</b><br><br>{food_items}<br><br>Until then,<br>Bobby<br><i>Save, Eat, Repeat!</i> "
 message.attach(MIMEText(body, "html"))
 
 # Send the email
