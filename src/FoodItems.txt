@@ -8,7 +8,7 @@ Margherita Pizza|10|Italian|800|Meal
 Mediterranean Salad|9|Mediterranean|450|Meal
 Chicken Fried Rice|11|Rice|650|Meal
 Chocolate Brownie|4|Desserts|400|Meal
-Iced Cappuccino|3|Beverages|120|Meal
+Iced Cappuccino|3|Beverages|120|Breakfast
 Breakfast Burrito|5|Breakfast|500|Breakfast
 Sushi Roll Combo|14|Japanese|600|Meal
 Greek Gyro|8|Mediterranean|550|Meal

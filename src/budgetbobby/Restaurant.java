@@ -41,27 +41,25 @@ public class Restaurant {
             currList.insert(curr);
 
             boolean currFoodItemInserted = false;
-            // catering for mealtime
+            //user has not selected meal time or category
             if (mealtime.equalsIgnoreCase("Select Meal Time") && category.equalsIgnoreCase("Select cuisine")) {
-                combinations[0].insert(currList);// inserting each food item at 0th index as meal time hasn't been selected
+                combinations[0].insert(currList);
                 currFoodItemInserted = true;
             }
+            //user has selected both
             else if(category.equalsIgnoreCase(curr.getCategory()) && mealtime.equalsIgnoreCase(curr.getMealTime())){
                 combinations[0].insert(currList);
                 currFoodItemInserted = true;
             }
-
-            else if (mealtime.equalsIgnoreCase(curr.getMealTime())) {
-                combinations[0].insert(currList);// inserting only if mealtime matches what user has provided
+            //user has selected either meal time or category 
+            else if (mealtime.equalsIgnoreCase(curr.getMealTime()) && category.equalsIgnoreCase("Select cuisine")) {
+                combinations[0].insert(currList);
                 currFoodItemInserted = true;
             }
-            else if(category.equalsIgnoreCase(curr.getCategory())){
+            else if(category.equalsIgnoreCase(curr.getCategory()) && mealtime.equalsIgnoreCase("Select Meal Time")){
                 combinations[0].insert(currList);
                 currFoodItemInserted =true;
             }
-
-
-
 
             if (currFoodItemInserted) {
                 // iterating through combinations array; each index of the array represents a value of current max budget
@@ -118,7 +116,6 @@ public class Restaurant {
             }
         }
 
-//.insert(curr);
 //      System.out.println(combinations[budget]);
         for (int i = 1; i < combinations.length; i++) {
             System.out.println("Combinations for " + i);
