@@ -28,7 +28,7 @@ public class Restaurant {
     }
 
     // method of searching 
-    public void searchCombinations(int budget) {
+    public void searchCombinations(int budget, int calories, String mealtime, String category) {
         LinkedList<LinkedList<FoodItem>>[] combinations = new LinkedList[budget + 1];
 
         for (int i = 0; i <= budget; i++) {
@@ -40,42 +40,66 @@ public class Restaurant {
             LinkedList<FoodItem> currList = new LinkedList<>();
             currList.insert(curr);
 
-            combinations[0].insert(currList);
+            Boolean currFoodItemInserted = false;
+            // catering for mealtime
+            if (mealtime.equalsIgnoreCase("Select Meal Time")) {
+                combinations[0].insert(currList);// inserting each food item at 0th index as meal time hasn't been selected
+                currFoodItemInserted = true;
+            } else if (mealtime.equalsIgnoreCase(curr.getMealTime())) {
+                combinations[0].insert(currList);// inserting only if mealtime matches what user has provided
+                currFoodItemInserted = true;
+            }
 
-            for (int j = 0; j < combinations.length; j++) {// iterating through combinations array 
-                if (curr.getPrice() <= j) {
-                    int idx = (j - this.itemsLinkedList.getNode(i).getData().getPrice());
-                    if (combinations[idx].getTail() != null) {
-                        LinkedList<FoodItem> tailListAtPrev = new LinkedList<FoodItem>();
-                        tailListAtPrev.insert(combinations[idx].getTail().getData().getTail().getData());
-                        //System.out.println(combinations[idx].getTail().getData());
-                        if (tailListAtPrev != null) {
-                            combinations[j].insert(tailListAtPrev);
-                            if ((curr.getPrice() != j) && (j % curr.getPrice() == 0)) {
-//                                System.out.println(i + " " + j);
-                                for (int k = 0; k < (j / curr.getPrice()) - 1; k++) {
+            if (currFoodItemInserted) {
+                // iterating through combinations array; each index of the array represents a value of current max budget
+                // adding the current foor item at indexes where a combination is possible 
+                for (int j = 0; j < combinations.length; j++) {
+                    if (curr.getPrice() <= j) {
+                        int idx = (j - this.itemsLinkedList.getNode(i).getData().getPrice());
+                        if (combinations[idx].getTail() != null) {
+                            LinkedList<FoodItem> tailListAtPrev = new LinkedList<FoodItem>();
+                            tailListAtPrev.insert(combinations[idx].getTail().getData().getTail().getData());
+                            if (tailListAtPrev != null) {
+                                combinations[j].insert(tailListAtPrev);
+                                if ((curr.getPrice() != j) && (j % curr.getPrice() == 0)) {
+                                    for (int k = 0; k < (j / curr.getPrice()) - 1; k++) {
+                                        combinations[j].getTail().getData().insert(curr);
+                                    }
+                                } else if ((curr.getPrice() != j)) {
                                     combinations[j].getTail().getData().insert(curr);
                                 }
-                            } else if ((curr.getPrice() != j)) {
-                                combinations[j].getTail().getData().insert(curr);
-                            }
 
+                            }
+                        }
+
+                    }
+
+                    //removing combination if it is less than j (current max budget)
+                    if (combinations[j].getTail() != null && j != 0) {
+                        LinkedList<FoodItem> lastCombo = combinations[j].getTail().getData();
+                        Node<FoodItem> temp = lastCombo.getHead();
+                        int sum = 0;
+                        while (temp != null) {
+                            sum += temp.getData().getPrice();
+                            temp = temp.getNext();
+                        }
+                        if (sum != j) {
+                            combinations[j].removeTail();
                         }
                     }
 
-                }
-
-                //removing entry if it is less than 12
-                if (combinations[j].getTail() != null && j != 0) {
-                    LinkedList<FoodItem> lastCombo = combinations[j].getTail().getData();
-                    Node<FoodItem> temp = lastCombo.getHead();
-                    int sum = 0;
-                    while (temp != null) {
-                        sum += temp.getData().getPrice();
-                        temp = temp.getNext();
-                    }
-                    if (sum != j) {
-                        combinations[j].removeTail();
+                    //removing combination if calorie limit is exceeded
+                    if (combinations[j].getTail() != null && j != 0) {
+                        LinkedList<FoodItem> lastCombo = combinations[j].getTail().getData();
+                        Node<FoodItem> temp = lastCombo.getHead();
+                        int totalCalories = 0;
+                        while (temp != null) {
+                            totalCalories += temp.getData().getCalorie();
+                            temp = temp.getNext();
+                        }
+                        if (totalCalories > calories) {
+                            combinations[j].removeTail();
+                        }
                     }
                 }
             }
