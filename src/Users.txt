@@ -1,6 +1,6 @@
 UserName|Email|Area|Calories|ID|Password
 
-John Doe|john.doe@email.com|Gulshan|100|JD_#Pswd321
+John Doe|john.d100100oe@email.com|Gulshan|100|JD_#Pswd321
 Jane Smith|jane.smith@email.com|Bahadarabad|101|JS_#Pswd456
 Mike Johnson|mike.johnson@email.com|Clifton|102|MJ_#Pswd789
 Emily White|emily.white@email.com|PECHS|103|EW_#Pswd654
@@ -10,3 +10,4 @@ Alex Miller|alex.miller@email.com|Bahadarabad|106|AM_#Pswd567
 Grace Taylor|grace.taylor@email.com|Clifton|107|GT_#Pswd890
 Kevin Davis|kevin.davis@email.com|PECHS|108|KD_#Pswd234
 Emma Clark|emma.clark@email.com|Sindhi Muslim|109|EC_#Pswd876
+zainab|zainab.rehman.frfr@gmail.com|Gulshan|1|123

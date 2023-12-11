@@ -1,5 +1,7 @@
 package budgetbobbygui;
 
+import budgetbobby.Manager;
+import budgetbobby.User;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -10,22 +12,26 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 public class LoginPage extends javax.swing.JFrame {
-
+    User currentUser;
+    
+    Manager manage;
+    
     public LoginPage() {
         initComponents();
         //   setSize(Toolkit.getDefaultToolkit().getScreenSize());
-
+        manage = new Manager();
         setSize(600, 1000);
         setLocationRelativeTo(null);
 
-        LoginInfo login = new LoginInfo();
-        Register register = new Register();
+        LoginInfo login = new LoginInfo(manage);
+        Register register = new Register(manage);
         slider.setAnimate(10);
         slider.init(login, register);
         login.addEventRegister(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 slider.show(1);
                 register.register();
+                
             }
         });
         register.addEventlogin(new ActionListener() {
@@ -38,8 +44,9 @@ public class LoginPage extends javax.swing.JFrame {
 
         login.loginEvent(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                if (login.foundUser==true) {
-                    HomePageFrame hpf = new HomePageFrame();
+                if (login.foundUser == true) {
+                    currentUser = login.currUser;
+                    HomePageFrame hpf = new HomePageFrame(currentUser, manage);
                     hpf.show();
 
                     dispose();
@@ -50,11 +57,13 @@ public class LoginPage extends javax.swing.JFrame {
 
         register.regEvent(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                HomePageFrame hpf = new HomePageFrame();
-                hpf.show();
+                if (register.userExists ==  false) {
+                    currentUser = register.currUser;
+                    HomePageFrame hpf = new HomePageFrame(currentUser,manage);
+                    hpf.show();
 
-                dispose();
-
+                    dispose();
+                }
             }
         });
 

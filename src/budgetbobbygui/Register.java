@@ -4,19 +4,32 @@
  */
 package budgetbobbygui;
 
+import budgetbobby.Manager;
+import budgetbobby.User;
+import budgetbobby.manager_login_signin;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author LENOVO T470s
  */
 public class Register extends javax.swing.JPanel {
-
+    
     /**
      * Creates new form LoginInfo
      */
-    public Register() {
+    Manager manage;
+    public boolean userExists;
+    User currUser;
+    
+    public Register(Manager manager) {
+        this.manage = manager;
         initComponents();
+        this.jLabel8.setVisible(false);
+        manage =  new Manager();
     }
     
     public void register(){
@@ -73,7 +86,7 @@ public class Register extends javax.swing.JPanel {
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
-        jLabel2.setText("Username:");
+        jLabel2.setText("User Name");
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
@@ -94,6 +107,11 @@ public class Register extends javax.swing.JPanel {
         signUp.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         signUp.setForeground(new java.awt.Color(255, 255, 255));
         signUp.setText("Sign up");
+        signUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signUpActionPerformed(evt);
+            }
+        });
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
@@ -211,6 +229,33 @@ public class Register extends javax.swing.JPanel {
     private void jPasswordField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordField4ActionPerformed
+
+    private void signUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpActionPerformed
+        // TODO add your handling code here:
+        String username = this.jTextField1.getText();
+        String area = this.jPasswordField1.getText();
+        String email = this.jPasswordField3.getText();
+        String password = this.jPasswordField4.getText();
+        
+        int ID = manage.getManager_login_signin().getLastID()+1;
+        
+        try {
+            manage.getManager_login_signin().signUp(username, email, area, ID, password);
+        } catch (IOException ex) {
+            //Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        userExists = manage.getManager_login_signin().getIsPresentSignup();
+        
+        if(userExists){
+            this.jLabel8.setVisible(true);
+            manage.getManager_login_signin().setLastID(ID);
+        }else{
+            currUser = manage.getManager_login_signin().getCurrUser();
+            System.out.println(currUser.getEmail());
+            this.jLabel8.setVisible(false);
+        }
+        
+    }//GEN-LAST:event_signUpActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

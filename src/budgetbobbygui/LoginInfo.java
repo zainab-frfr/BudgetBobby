@@ -2,6 +2,7 @@
 package budgetbobbygui;
 
 import budgetbobby.Manager;
+import budgetbobby.User;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -17,10 +18,14 @@ public class LoginInfo extends javax.swing.JPanel {
     public boolean foundUser;
     
     Manager manage;
-    public LoginInfo() {
+    User currUser;
+    
+    public LoginInfo(Manager manager) {
         initComponents();
-        manage = new Manager();
+        this.manage = manager;
+        
         this.jLabel1.setVisible(false);
+        this.jLabel5.setVisible(false);
     }
 
     public void login(){
@@ -112,7 +117,6 @@ public class LoginInfo extends javax.swing.JPanel {
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel6.setText("User does not exist");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -141,7 +145,7 @@ public class LoginInfo extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
+                .addContainerGap(55, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(37, 37, 37)
                 .addComponent(jLabel2)
@@ -176,10 +180,17 @@ public class LoginInfo extends javax.swing.JPanel {
         String userID = this.usernameTextfield.getText();
         String pass = this.jPasswordField1.getText();
         
-        foundUser = manage.checkUserLogin(userID, pass);
+        manage.getManager_login_signin().login(Integer.parseInt(userID), pass);
+        
+        foundUser = manage.getManager_login_signin().getIsPresentLogin();
         
         if(!foundUser){
             this.jLabel1.setVisible(true);
+            this.jLabel5.setVisible(true);
+        }else{
+            this.jLabel1.setVisible(false);
+            this.jLabel5.setVisible(false);
+            currUser = manage.getManager_login_signin().getCurrUser();
         }
     }//GEN-LAST:event_loginBActionPerformed
 

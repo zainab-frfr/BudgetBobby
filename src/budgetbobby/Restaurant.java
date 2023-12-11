@@ -20,11 +20,12 @@ public class Restaurant {
     private double avgRating;
     HashMap<FoodItem> itemsOFRestaurant = new HashMap<>(15);//we're hashing based on price
     LinkedList<FoodItem> itemsLinkedList = new LinkedList<>();
-
+    LinkedList<LinkedList<FoodItem>>[] combinations;
     public Restaurant(String name, String area, double avgRating) {
         this.name = name;
         this.area = area;
         this.avgRating = avgRating;
+        
     }
 
     // method of searching 
@@ -115,6 +116,8 @@ public class Restaurant {
                 }
             }
         }
+        
+        
 
 
 //      System.out.println(combinations[budget]);
@@ -127,9 +130,14 @@ public class Restaurant {
 
     }
 
+    public LinkedList<User> getCustomers() {
+        return customers;
+    }
 
+    public LinkedList<LinkedList<FoodItem>>[] getCombinations() {
+        return combinations;
+    }
 
-   
    
 
     public void addFoodItem(FoodItem item) {

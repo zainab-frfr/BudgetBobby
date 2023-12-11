@@ -22,6 +22,10 @@ public class UserAccounts {
     public void addUser(User newUser){
         allUsers.insert(newUser);
     }
+    
+    public boolean findUser(String email){
+        return allUsers.findUserEmail(email);
+    }
     //find user
     public User findUser(int ID){
         return  allUsers.findUser(ID);

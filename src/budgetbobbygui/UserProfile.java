@@ -1,6 +1,8 @@
 package budgetbobbygui;
 
 
+import budgetbobby.Manager;
+import budgetbobby.User;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -21,8 +23,20 @@ public class UserProfile extends javax.swing.JFrame {
     /**
      * Creates new form UserProfile
      */
-    public UserProfile() {
+    User currUser;
+    Manager manage;
+    public UserProfile(User currUser, Manager manager) {
+        this.currUser = currUser;
         initComponents();
+        
+        this.manage = manager;
+        
+        this.jLabel1.setText(currUser.getName());
+        this.jLabel4.setText(currUser.getID()+"");
+        this.jLabel2.setText(currUser.getEmail());
+        this.jLabel8.setText(currUser.getArea());
+        
+        
     }
     
     class jPanelGradient extends JPanel {
@@ -73,6 +87,13 @@ public class UserProfile extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 24)); // NOI18N
         jLabel1.setText("NAME");
+        jLabel1.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                jLabel1InputMethodTextChanged(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Emoji", 0, 14)); // NOI18N
         jLabel2.setText("Gmail");
@@ -231,11 +252,15 @@ public class UserProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       HomePageFrame hpf = new HomePageFrame();
+       HomePageFrame hpf = new HomePageFrame(currUser, manage);
        hpf.show();
        
        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jLabel1InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jLabel1InputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel1InputMethodTextChanged
 
     /**
      * @param args the command line arguments

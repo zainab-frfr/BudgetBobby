@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -30,15 +31,15 @@ public class Manager {
     LinkedList<Restaurant> allRestaurants;
     LinkedList<FoodItem> foodItemLinkedList;
     
-    User currentUser;
+    LinkedList<LinkedList<LinkedList<FoodItem>>>[] allcombinations;
 
     Scanner input = new Scanner(System.in);
+    int lastID = 0;
 
     public Manager() {
         allRestaurants = new LinkedList<Restaurant>();
         foodItemLinkedList = new LinkedList<>();
         accounts = new UserAccounts();
-        manager_login_signin = new manager_login_signin(accounts);
         delivery = new Delivery();
 
         String restaurantPath = "src/restaurants.txt";
@@ -50,6 +51,9 @@ public class Manager {
         fileReading(usersPath, "users"); //columns are 5 but there is conflict with line 37
 
         addingFoodItemsIntoRestaurants(10);
+        this.RestaurantsDistances();
+
+        manager_login_signin = new manager_login_signin(accounts, lastID);
 
     }
 
@@ -94,6 +98,7 @@ public class Manager {
         int ID = Integer.parseInt(separated[3]);
         User user = new User(separated[0], separated[1], separated[2], ID, separated[4]);
         accounts.addUser(user);
+        lastID = user.getID();
     }
 
     public void addingFoodItemsIntoRestaurants(int foodItemsPerRestaurant) {
@@ -125,7 +130,7 @@ public class Manager {
         return topRated;
     }
 
-    public void RestaurantsDistances(){
+    public void RestaurantsDistances() {
 
         graphs.addVertex("Bahadurabad");
         graphs.addVertex("Clifton");
@@ -148,31 +153,47 @@ public class Manager {
         graphs.addEdge("Gulshan", "PECHS", 10);
     }
 
-
-
-
-    public void combinationAllRestaurants(int areaNo,int budget, int calories, String mealtime, String category){
+    public void combinationAllRestaurants(int areaNo, int budget, int calories, String mealtime, String category) {
         String[] areasNearestToFarthest = graphs.shortestPath(areaNo);
+        
+        allcombinations = new LinkedList[5];
+        for (int i = 0; i < allcombinations.length; i++) {
+            allcombinations[i] = new LinkedList<>();
+        }
+        int i = 0;
         for (String area : areasNearestToFarthest) {
+            
             System.out.println("*****************" + area + "*****************");
-
             // Iterate through restaurants and print combinations only for those in the current area
             for (int j = 0; j < allRestaurants.getLength(); j++) {
                 Restaurant restaurant = allRestaurants.getNode(j).getData();
                 if (restaurant.getArea().equals(area)) {
                     System.out.println("*****************" + restaurant.getName() + "*****************");
                     restaurant.searchCombinations(budget, calories, mealtime, category);
+                    if(restaurant.combinations!=null){
+                        allcombinations[i].insertArray(restaurant.combinations);
+                    }
                 }
+            }
+            i++;
+            if(i==5){
+                break;
             }
         }
 
     }
 
-
-    public boolean checkUserLogin(String userID, String password){
-        int id = Integer.parseInt(userID);
-        this.currentUser = accounts.findUser(id);
-        
-        return this.currentUser!=null;
+    public UserAccounts getAccounts() {
+        return accounts;
     }
+
+    public manager_login_signin getManager_login_signin() {
+        return manager_login_signin;
+    }
+
+    public LinkedList<LinkedList<LinkedList<FoodItem>>>[] getAllcombinations() {
+        return allcombinations;
+    }
+    
+
 }

@@ -188,6 +188,12 @@ public class LinkedList<T> {
 
         return s;
     }
+    
+    public void insertArray(T[] d){
+        for (int i = 0; i < d.length; i++) {
+            this.insert(d[i]);
+        }
+    }
 
 //    public String checking(){
 //        String s = "";

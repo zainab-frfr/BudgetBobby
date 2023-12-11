@@ -1,6 +1,10 @@
-
 package budgetbobbygui;
 
+import budgetbobby.DataStructures.LinkedList;
+import budgetbobby.DataStructures.Node;
+import budgetbobby.FoodItem;
+import budgetbobby.Manager;
+import budgetbobby.User;
 import budgetbobbygui.Header;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -30,21 +34,22 @@ public class HomePageFrame extends javax.swing.JFrame {
     private DrawerController drawer;
     private JTextArea textArea;
     private List<String> selectedRows;
-    
-    public HomePageFrame() {
+    Manager manage;
+
+    public HomePageFrame(User currUser, Manager manager) {
         initComponents();
         addRowToJTable();
-        
+
         setInitialVisibility(); // Set the initial visibility
-        
-        
-        
+
+        this.manage = manager;
+
         JLabel cartHeading = new JLabel();
         cartHeading.setBackground(new Color(253, 231, 76));
         cartHeading.setText("                              Your Cart:");
         cartHeading.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
         cartHeading.setForeground(Color.white);
-        
+
         // Create a JTextArea to display multiple lines of text
         textArea = new JTextArea();
         textArea.setBackground(new Color(253, 231, 76));
@@ -52,38 +57,31 @@ public class HomePageFrame extends javax.swing.JFrame {
         textArea.setLineWrap(true); // Enable line wrapping
         textArea.setWrapStyleWord(true); // Wrap at word boundaries
         textArea.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 12));
-        
+
         // Initialize the list of selected rows
         selectedRows = new ArrayList<>();
-        
-        
-        
+
         // Create a JScrollPane to make the text area scrollable
         JScrollPane scrollPane = new JScrollPane(textArea);
-       
+
         // Confirm order button
         JButton confirmOrder = new JButton("Confirm Order");
         //confirmOrder.setBackground(new Color(255, 156, 98)); // FF9C62
-       
-        
+
         DrawerItem viewProfileItem = new DrawerItem("                         View Profile");
         viewProfileItem.setForeground(Color.white);
         viewProfileItem.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-        
-    
-        
+
         drawer = Drawer.newDrawer(this)
                 .header(new Header())
                 .separator(1, new Color(253, 231, 76))
                 .separator(10, new Color(253, 231, 76))
-                
                 .background(Color.DARK_GRAY)
                 .backgroundTransparent(0.3f)
                 .duration(400)
                 .drawerBackground(new Color(253, 231, 76))
                 .enableScroll(true)
                 .drawerWidth(300)
-                
                 //.addChild(new DrawerItem("Item Name").icon(new ImageIcon(getClass().getResource(name))).build())  // to add image icon
                 .addChild(viewProfileItem.build())
                 .separator(10, new Color(253, 231, 76))
@@ -93,24 +91,21 @@ public class HomePageFrame extends javax.swing.JFrame {
                 .separator(5, new Color(253, 231, 76))
                 .separator(5, new Color(253, 231, 76))
                 .addChild(confirmOrder)
-                
-                
-              
                 .separator(10, new Color(253, 231, 76))
-                .event(new EventDrawer(){
-            @Override
-            public void selected(int i, DrawerItem di) {
-                //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-            }
-            
-            public void closed() {
-                    getContentPane().setBackground(Color.WHITE);
-            }
-                    
+                .event(new EventDrawer() {
+                    @Override
+                    public void selected(int i, DrawerItem di) {
+                        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+                    }
+
+                    public void closed() {
+                        getContentPane().setBackground(Color.WHITE);
+                    }
+
                 })
                 .build();
-        
-            sidebarButton.addActionListener(new java.awt.event.ActionListener() {
+
+        sidebarButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if (drawer.isShow()) {
@@ -120,56 +115,54 @@ public class HomePageFrame extends javax.swing.JFrame {
                 }
             }
         });
-           
-        
-           viewProfileItem.addActionListener(new ActionListener(){
+
+        viewProfileItem.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-               UserProfile up = new UserProfile();
-               up.show();
-               
-              setVisible(false);
+                UserProfile up = new UserProfile(currUser, manage);
+                up.show();
+
+                setVisible(false);
             }
-           });
-            confirmOrder.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Create a panel to hold the components
-                    JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        });
+        confirmOrder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create a panel to hold the components
+                JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-                    // Add a label above the JComboBox
-                    JLabel label = new JLabel("Please select delivery time:");
-                    panel.add(label);
+                // Add a label above the JComboBox
+                JLabel label = new JLabel("Please select delivery time:");
+                panel.add(label);
 
-                    // Add a JComboBox for selecting delivery time
-                    String[] deliveryTimes = {"asap", "30 min", "45 min", "1 hr", "1.5hr", "2 hr", "2.5hr", "3 hr"}; // Add more options as needed
-                    JComboBox<String> timeComboBox = new JComboBox<>(deliveryTimes);
-                    panel.add(timeComboBox);
-                    
-                    int result = JOptionPane.showConfirmDialog(HomePageFrame.this, panel,
-                    "Confirmation",
-                    JOptionPane.YES_NO_OPTION);
+                // Add a JComboBox for selecting delivery time
+                String[] deliveryTimes = {"asap", "30 min", "45 min", "1 hr", "1.5hr", "2 hr", "2.5hr", "3 hr"}; // Add more options as needed
+                JComboBox<String> timeComboBox = new JComboBox<>(deliveryTimes);
+                panel.add(timeComboBox);
 
+                int result = JOptionPane.showConfirmDialog(HomePageFrame.this, panel,
+                        "Confirmation",
+                        JOptionPane.YES_NO_OPTION);
 
-                    // Check the user's choice in the confirmation dialog
-                    if (result == JOptionPane.YES_OPTION) {
-                        // User clicked "Yes" - handle confirmation logic here
+                // Check the user's choice in the confirmation dialog
+                if (result == JOptionPane.YES_OPTION) {
+                    // User clicked "Yes" - handle confirmation logic here
 //                        String selectedTime = (String) timeComboBox.getSelectedItem();
 //                        JOptionPane.showMessageDialog(HomePageFrame.this, "Order confirmed!\nDelivery time: " + selectedTime);
-                            bill bill = new bill();
-                            bill.show();
-                            
-                           // setVisible(false);
+                    bill bill = new bill();
+                    bill.show();
+
+                    // setVisible(false);
 //                        textArea.setText(""); // Clear a text area (probably displaying order details)
-                    } else {
-                        // User clicked "No" or closed the dialog - handle cancellation logic here
-                        JOptionPane.showMessageDialog(HomePageFrame.this, "Order canceled.");
-                    }
+                } else {
+                    // User clicked "No" or closed the dialog - handle cancellation logic here
+                    JOptionPane.showMessageDialog(HomePageFrame.this, "Order canceled.");
                 }
-            });
-            
-            // Add a ListSelectionListener to jTable1 to capture row selection events
+            }
+        });
+
+        // Add a ListSelectionListener to jTable1 to capture row selection events
         comboTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -179,14 +172,11 @@ public class HomePageFrame extends javax.swing.JFrame {
                 }
             }
         });
-        
-            
-            
+
     }
-    
-    
-    
-    public class Rest{
+
+    public class Rest {
+
         public String name;
         public double rating;
         public String combo;
@@ -200,11 +190,10 @@ public class HomePageFrame extends javax.swing.JFrame {
             this.price = price;
             this.calories = calories;
         }
-        
+
     }
-    
-    
-    public ArrayList ListRests(){
+
+    public ArrayList ListRests() {
         ArrayList<Rest> list = new ArrayList<Rest>();
         Rest r1 = new Rest("Rest_1", 4.0, "item1+item2+item3", 2500, 400);
         Rest r2 = new Rest("Rest_1", 4.0, "item1+item2+item3", 2500, 400);
@@ -229,9 +218,8 @@ public class HomePageFrame extends javax.swing.JFrame {
         list.add(r10);
         return list;
     }
-    
-    
-    public void addRowToJTable(){
+
+    public void addRowToJTable() {
         DefaultTableModel model = (DefaultTableModel) comboTable.getModel();
         ArrayList<Rest> list = ListRests();
         Object rowData[] = new Object[6];
@@ -242,29 +230,30 @@ public class HomePageFrame extends javax.swing.JFrame {
             rowData[3] = list.get(i).combo;
             rowData[4] = list.get(i).price;
             rowData[5] = list.get(i).calories;
-            
+
             model.addRow(rowData);
         }
     }
-    
-     
-             class jPanelGradient extends JPanel {
-            @Override
-            protected void paintComponent(Graphics g){
-                Graphics2D g2d = (Graphics2D) g;
-                int width = getWidth();
-                int height = getHeight();
-                
-                Color color1 = new Color (253,231,76);
-               // Color color1 = new Color  (249,237,204);
-               Color color2 = new Color  (238,39,30);
-                GradientPaint gp = new GradientPaint(0,0,color1,180,height,color2);
-                g2d.setPaint(gp);
-                g2d.fillRect(0,0,width,height);
-            }
-             }
+
+    class jPanelGradient extends JPanel {
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2d = (Graphics2D) g;
+            int width = getWidth();
+            int height = getHeight();
+
+            Color color1 = new Color(253, 231, 76);
+            // Color color1 = new Color  (249,237,204);
+            Color color2 = new Color(238, 39, 30);
+            GradientPaint gp = new GradientPaint(0, 0, color1, 180, height, color2);
+            g2d.setPaint(gp);
+            g2d.fillRect(0, 0, width, height);
+        }
+    }
 
     private Set<Integer> selectedRowIndices = new HashSet<>();
+
     // Method to update the textArea with selected rows
     private void updateTextArea() {
         // Append the selected rows to the list
@@ -277,22 +266,18 @@ public class HomePageFrame extends javax.swing.JFrame {
             combination = (String) comboTable.getValueAt(selectedRow, 3);
             //price = (String)comboTable.getValueAt(selectedRow, 4);
             price = String.valueOf(comboTable.getValueAt(selectedRow, 4));
-            
+
             selectedRows.add(restaurant + ": " + combination + " - Price: " + price);
         }
         textArea.setText(String.join("\n\n", selectedRows));
     }
-    
-    
-    
+
     private void setInitialVisibility() {
         // Set the initial visibility of the components
         tablePanel.setVisible(false);
         emptyLabel.setVisible(true);
     }
-    
-    
-   
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -303,8 +288,6 @@ public class HomePageFrame extends javax.swing.JFrame {
         userBudget = new javax.swing.JTextField();
         MealTimeComboBox = new javax.swing.JComboBox<>();
         CuisineComboBox = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        CaloriesComboBox = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -317,6 +300,9 @@ public class HomePageFrame extends javax.swing.JFrame {
         generateButton = new javax.swing.JButton();
         topRatedPic = new swing.ImageAvatar();
         jLabel4 = new javax.swing.JLabel();
+        calories = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -341,9 +327,7 @@ public class HomePageFrame extends javax.swing.JFrame {
             }
         });
 
-        MealTimeComboBox.setBackground(new java.awt.Color(255, 255, 255));
         MealTimeComboBox.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        MealTimeComboBox.setForeground(new java.awt.Color(0, 0, 0));
         MealTimeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Meal Time", "Breakfast", "Meal" }));
         MealTimeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -351,29 +335,11 @@ public class HomePageFrame extends javax.swing.JFrame {
             }
         });
 
-        CuisineComboBox.setBackground(new java.awt.Color(255, 255, 255));
         CuisineComboBox.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        CuisineComboBox.setForeground(new java.awt.Color(0, 0, 0));
         CuisineComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select cuisine", "FastFood", "BBQ", "Chinese", "Continental", "Italian", "Mediterranean", "Rice", "Desserts", "Beverages", "Breakfast", "Japanese", "Vegetarian", "Seafood", "Salad", "Lunch", "Wrap", "Indian", "Bowl", "Mexican", "Dinner", "Thai" }));
         CuisineComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CuisineComboBoxActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setBackground(new java.awt.Color(232, 228, 228));
-        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Enter your budget:");
-
-        CaloriesComboBox.setBackground(new java.awt.Color(0, 102, 102));
-        CaloriesComboBox.setEditable(true);
-        CaloriesComboBox.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
-        CaloriesComboBox.setForeground(new java.awt.Color(255, 255, 255));
-        CaloriesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enter Calories" }));
-        CaloriesComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CaloriesComboBoxActionPerformed(evt);
             }
         });
 
@@ -408,21 +374,26 @@ public class HomePageFrame extends javax.swing.JFrame {
         if (comboTable.getColumnModel().getColumnCount() > 0) {
             comboTable.getColumnModel().getColumn(0).setResizable(false);
             comboTable.getColumnModel().getColumn(0).setPreferredWidth(80);
+            comboTable.getColumnModel().getColumn(0).setHeaderValue("Select");
             comboTable.getColumnModel().getColumn(1).setResizable(false);
             comboTable.getColumnModel().getColumn(1).setPreferredWidth(200);
+            comboTable.getColumnModel().getColumn(1).setHeaderValue("Restaurant");
             comboTable.getColumnModel().getColumn(2).setResizable(false);
             comboTable.getColumnModel().getColumn(2).setPreferredWidth(80);
+            comboTable.getColumnModel().getColumn(2).setHeaderValue("Rating");
             comboTable.getColumnModel().getColumn(3).setResizable(false);
             comboTable.getColumnModel().getColumn(3).setPreferredWidth(700);
+            comboTable.getColumnModel().getColumn(3).setHeaderValue("Combination");
             comboTable.getColumnModel().getColumn(4).setResizable(false);
             comboTable.getColumnModel().getColumn(4).setPreferredWidth(100);
+            comboTable.getColumnModel().getColumn(4).setHeaderValue("Price");
             comboTable.getColumnModel().getColumn(5).setResizable(false);
             comboTable.getColumnModel().getColumn(5).setPreferredWidth(100);
+            comboTable.getColumnModel().getColumn(5).setHeaderValue("Calories");
         }
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));
         jLabel5.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Combinations under your budget:");
 
         javax.swing.GroupLayout tablePanelLayout = new javax.swing.GroupLayout(tablePanel);
@@ -459,7 +430,7 @@ public class HomePageFrame extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(973, 973, 973)
+                .addGap(877, 877, 877)
                 .addComponent(jLabel3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -494,8 +465,24 @@ public class HomePageFrame extends javax.swing.JFrame {
         topRatedPic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/test/topRated3.jpg"))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Fresh Delights");
+
+        calories.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 156, 98)));
+        calories.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caloriesActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setBackground(new java.awt.Color(232, 228, 228));
+        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Enter your budget:");
+
+        jLabel1.setBackground(new java.awt.Color(232, 228, 228));
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Enter calories:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -509,43 +496,51 @@ public class HomePageFrame extends javax.swing.JFrame {
                 .addComponent(topRatedPic, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(231, 231, 231)
-                .addComponent(CaloriesComboBox, 0, 1, Short.MAX_VALUE)
-                .addGap(27, 27, 27)
-                .addComponent(MealTimeComboBox, 0, 1, Short.MAX_VALUE)
-                .addGap(29, 29, 29)
-                .addComponent(CuisineComboBox, 0, 1, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(generateButton)
-                .addGap(240, 240, 240))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(sidebarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(userBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(327, 327, 327))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(sidebarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 257, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(calories, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(MealTimeComboBox, 0, 1, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(CuisineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(userBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(generateButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(sidebarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(0, 0, 0)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CuisineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MealTimeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CaloriesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(userBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(MealTimeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(CuisineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(calories, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1))
                     .addComponent(generateButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(32, 32, 32)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -559,13 +554,13 @@ public class HomePageFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel4.add(jPanel1, java.awt.BorderLayout.CENTER);
+        jPanel4.add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 910, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -579,26 +574,67 @@ public class HomePageFrame extends javax.swing.JFrame {
     private void generateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateButtonActionPerformed
         // TODO add your handling code here:
 
+        int budget = Integer.parseInt(this.userBudget.getText());
+
+        String mealtime = (String) this.MealTimeComboBox.getSelectedItem();
+        String category = (String) this.CuisineComboBox.getSelectedItem();
+        int calories;
+        if (this.calories.getText().length() == 0) {
+            calories = Integer.MAX_VALUE;
+        } else {
+            calories = Integer.parseInt(this.calories.getText());
+        }
+        manage.combinationAllRestaurants(4, budget, calories, mealtime, category);
+
         // Toggle the visibility of jTable1 and emptyLabel
         tablePanel.setVisible(true);
         emptyLabel.setVisible(false);
 
-        // If jTable1 is visible, update its content
+        //removing previous rows
+        DefaultTableModel model = (DefaultTableModel) comboTable.getModel();
+        model.setRowCount(0); // Remove all previous rows
+
+        LinkedList<LinkedList<LinkedList<FoodItem>>>[] allCombinations = manage.getAllcombinations();
+
         if (comboTable.isVisible()) {
             // Add your logic to update the content of jTable1 based on user interaction
             // For example, you can repopulate jTable1 with data here.
-        }
-    }//GEN-LAST:event_generateButtonActionPerformed
+//            Object[] rowData = {false, "Restaurant A", 4, "Combination 1", 25.5, 500};
+//
+//            model.addRow(rowData);
+            System.out.println("IN COMBO TABLE");
+            for (int i = 0; i < allCombinations.length; i++) {//loops 5 times for each area
+                for (int j = 0; j < allCombinations[i].getLength(); j++) {//iterates through individual restuarants
+                    for (int k = 0; k < allCombinations[i].getNode(j).getData().getLength(); k++) {//iterates through each budget possibility of individual restaurants
+                        for (int l = 0; l < allCombinations[i].getNode(j).getData().getNode(k).getData().getLength(); l++) {//iterates through each combination
+                            LinkedList<FoodItem> combination = allCombinations[i].getNode(j).getData().getNode(k).getData();
+                            if (combination!=null) {
+                                System.out.println("COMBO AINT NULL");
+                                Node<FoodItem> curr = combination.getHead();
+                                int Price = 0;
+                                String comboToDisplay = "";
+                                int totalCalorie = 0;
+                                int rating = (int) (Math.random() * 5) + 1;
+                                while (curr != null) {
+                                    Price += curr.getData().getPrice();
+                                    comboToDisplay += curr.getData().getName() + " + ";
+                                    totalCalorie += curr.getData().getCalorie();
+                                    curr = curr.getNext();
+                                }
+                                comboToDisplay = comboToDisplay.substring(0, comboToDisplay.length() - 2);
+                                Object[] rowData = {false, "Restaurant A", rating, comboToDisplay, Price, totalCalorie};
 
-    private void CaloriesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CaloriesComboBoxActionPerformed
-        // TODO add your handling code here:
-        CaloriesComboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String typedCalories = (String) CaloriesComboBox.getEditor().getItem();
+                                model.addRow(rowData);
+                            }
+                        }
+
+                    }
+
+                }
             }
-        });
-    }//GEN-LAST:event_CaloriesComboBoxActionPerformed
+        }
+
+    }//GEN-LAST:event_generateButtonActionPerformed
 
     private void CuisineComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuisineComboBoxActionPerformed
         CuisineComboBox.addActionListener(new ActionListener() {
@@ -636,16 +672,10 @@ public class HomePageFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_sidebarButtonActionPerformed
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    private void caloriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caloriesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_caloriesActionPerformed
+
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -679,9 +709,9 @@ public class HomePageFrame extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CaloriesComboBox;
     private javax.swing.JComboBox<String> CuisineComboBox;
     private javax.swing.JComboBox<String> MealTimeComboBox;
+    private javax.swing.JTextField calories;
     private javax.swing.JTable comboTable;
     private javax.swing.JLabel emptyLabel;
     private javax.swing.JButton generateButton;
@@ -690,6 +720,7 @@ public class HomePageFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
